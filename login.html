@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodShare - Authentication</title>
+    <title>Login - FoodShare</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -70,36 +70,6 @@
 
         .auth-card {
             padding: 2.5rem;
-        }
-
-        .auth-tabs {
-            display: flex;
-            margin-bottom: 2rem;
-            border-radius: 8px;
-            overflow: hidden;
-            background: var(--light);
-        }
-
-        .auth-tab {
-            flex: 1;
-            text-align: center;
-            padding: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-
-        .auth-tab.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        .auth-form {
-            display: none;
-        }
-
-        .auth-form.active {
-            display: block;
         }
 
         .form-group {
@@ -272,56 +242,6 @@
             text-decoration: underline;
         }
 
-        .user-type-selector {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .user-type {
-            flex: 1;
-            text-align: center;
-            padding: 1rem 0.5rem;
-            border: 2px solid var(--gray-light);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .user-type:hover {
-            border-color: var(--primary);
-        }
-
-        .user-type.active {
-            border-color: var(--primary);
-            background: var(--primary-light);
-        }
-
-        .user-type i {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            display: block;
-            color: var(--primary);
-        }
-
-        .password-strength {
-            margin-top: 0.5rem;
-        }
-
-        .strength-bar {
-            height: 4px;
-            background: var(--gray-light);
-            border-radius: 2px;
-            margin-top: 0.25rem;
-            overflow: hidden;
-        }
-
-        .strength-fill {
-            height: 100%;
-            width: 0%;
-            transition: all 0.3s ease;
-        }
-
         .form-message {
             padding: 0.75rem;
             border-radius: 8px;
@@ -358,10 +278,6 @@
             .social-login {
                 flex-direction: column;
             }
-            
-            .user-type-selector {
-                flex-direction: column;
-            }
         }
     </style>
 </head>
@@ -378,18 +294,12 @@
 
         <!-- Form Section -->
         <div class="auth-card">
-            <!-- Tabs -->
-            <div class="auth-tabs">
-                <div class="auth-tab active" data-tab="login">Login</div>
-                <div class="auth-tab" data-tab="signup">Sign Up</div>
-            </div>
-
             <!-- Messages -->
             <div class="form-message error" id="error-message"></div>
             <div class="form-message success" id="success-message"></div>
 
             <!-- Login Form -->
-            <form id="login-form" class="auth-form active">
+            <form id="login-form">
                 <div class="form-group">
                     <label for="login-email" class="form-label">Email Address</label>
                     <input type="email" id="login-email" class="form-control" placeholder="Enter your email" required>
@@ -431,90 +341,7 @@
                 </div>
 
                 <div class="auth-footer">
-                    Don't have an account? <a href="#" id="switch-to-signup">Sign up here</a>
-                </div>
-            </form>
-
-            <!-- Signup Form -->
-            <form id="signup-form" class="auth-form">
-                <div class="form-group">
-                    <label for="signup-name" class="form-label">Full Name</label>
-                    <input type="text" id="signup-name" class="form-control" placeholder="Enter your full name" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="signup-email" class="form-label">Email Address</label>
-                    <input type="email" id="signup-email" class="form-control" placeholder="Enter your email" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="signup-password" class="form-label">Password</label>
-                    <div class="password-input-container">
-                        <input type="password" id="signup-password" class="form-control" placeholder="Create a password" required>
-                        <button type="button" class="password-toggle" id="signup-password-toggle">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                    <div class="password-strength">
-                        <div>Password strength: <span id="strength-text">Weak</span></div>
-                        <div class="strength-bar">
-                            <div class="strength-fill" id="strength-fill"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="signup-confirm-password" class="form-label">Confirm Password</label>
-                    <div class="password-input-container">
-                        <input type="password" id="signup-confirm-password" class="form-control" placeholder="Confirm your password" required>
-                        <button type="button" class="password-toggle" id="signup-confirm-password-toggle">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">I am a:</label>
-                    <div class="user-type-selector">
-                        <div class="user-type active" data-type="donor">
-                            <i class="fas fa-utensils"></i>
-                            <span>Food Donor</span>
-                        </div>
-                        <div class="user-type" data-type="recipient">
-                            <i class="fas fa-hands-helping"></i>
-                            <span>Food Recipient</span>
-                        </div>
-                        <div class="user-type" data-type="volunteer">
-                            <i class="fas fa-user"></i>
-                            <span>Volunteer</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <input type="checkbox" id="agree-terms" required>
-                    <label for="agree-terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Create Account</button>
-
-                <div class="divider">
-                    <span>Or sign up with</span>
-                </div>
-
-                <div class="social-login">
-                    <button type="button" class="social-btn google">
-                        <i class="fab fa-google"></i>
-                        <span>Google</span>
-                    </button>
-                    <button type="button" class="social-btn facebook">
-                        <i class="fab fa-facebook-f"></i>
-                        <span>Facebook</span>
-                    </button>
-                </div>
-
-                <div class="auth-footer">
-                    Already have an account? <a href="#" id="switch-to-login">Login here</a>
+                    Don't have an account? <a href="signup.html">Sign up here</a>
                 </div>
             </form>
         </div>
@@ -523,105 +350,23 @@
     <script>
         // DOM Elements
         const loginForm = document.getElementById('login-form');
-        const signupForm = document.getElementById('signup-form');
-        const loginTab = document.querySelector('.auth-tab[data-tab="login"]');
-        const signupTab = document.querySelector('.auth-tab[data-tab="signup"]');
-        const switchToSignup = document.getElementById('switch-to-signup');
-        const switchToLogin = document.getElementById('switch-to-login');
         const errorMessage = document.getElementById('error-message');
         const successMessage = document.getElementById('success-message');
         
         // Password toggle functionality
-        const passwordToggles = document.querySelectorAll('.password-toggle');
-        passwordToggles.forEach(toggle => {
-            toggle.addEventListener('click', function() {
-                const input = this.parentElement.querySelector('input');
-                const icon = this.querySelector('i');
-                
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    icon.classList.remove('fa-eye');
-                    icon.classList.add('fa-eye-slash');
-                } else {
-                    input.type = 'password';
-                    icon.classList.remove('fa-eye-slash');
-                    icon.classList.add('fa-eye');
-                }
-            });
-        });
-
-        // Tab switching
-        function switchTab(tabName) {
-            // Update active tab
-            document.querySelectorAll('.auth-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelector(`.auth-tab[data-tab="${tabName}"]`).classList.add('active');
+        const passwordToggle = document.getElementById('login-password-toggle');
+        passwordToggle.addEventListener('click', function() {
+            const input = document.getElementById('login-password');
+            const icon = this.querySelector('i');
             
-            // Update active form
-            document.querySelectorAll('.auth-form').forEach(form => {
-                form.classList.remove('active');
-            });
-            document.getElementById(`${tabName}-form`).classList.add('active');
-            
-            // Clear messages
-            clearMessages();
-        }
-
-        loginTab.addEventListener('click', () => switchTab('login'));
-        signupTab.addEventListener('click', () => switchTab('signup'));
-        switchToSignup.addEventListener('click', (e) => {
-            e.preventDefault();
-            switchTab('signup');
-        });
-        switchToLogin.addEventListener('click', (e) => {
-            e.preventDefault();
-            switchTab('login');
-        });
-
-        // User type selection
-        const userTypes = document.querySelectorAll('.user-type');
-        userTypes.forEach(type => {
-            type.addEventListener('click', () => {
-                userTypes.forEach(t => t.classList.remove('active'));
-                type.classList.add('active');
-            });
-        });
-
-        // Password strength indicator
-        const passwordInput = document.getElementById('signup-password');
-        const strengthText = document.getElementById('strength-text');
-        const strengthFill = document.getElementById('strength-fill');
-        
-        passwordInput.addEventListener('input', function() {
-            const password = this.value;
-            let strength = 0;
-            
-            // Check password length
-            if (password.length >= 8) strength += 25;
-            
-            // Check for lowercase letters
-            if (/[a-z]/.test(password)) strength += 25;
-            
-            // Check for uppercase letters
-            if (/[A-Z]/.test(password)) strength += 25;
-            
-            // Check for numbers and special characters
-            if (/[0-9]/.test(password)) strength += 15;
-            if (/[^A-Za-z0-9]/.test(password)) strength += 10;
-            
-            // Update strength indicator
-            strengthFill.style.width = `${strength}%`;
-            
-            if (strength < 50) {
-                strengthText.textContent = 'Weak';
-                strengthFill.style.background = '#ff4757';
-            } else if (strength < 75) {
-                strengthText.textContent = 'Medium';
-                strengthFill.style.background = '#ffa502';
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
             } else {
-                strengthText.textContent = 'Strong';
-                strengthFill.style.background = '#2ed573';
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
             }
         });
 
@@ -672,54 +417,7 @@
             // In a real application, you would make an API call here
             setTimeout(() => {
                 // Redirect to dashboard or home page
-                // window.location.href = 'dashboard.html';
-            }, 1500);
-        });
-
-        // Signup form submission
-        signupForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('signup-name').value;
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
-            const confirmPassword = document.getElementById('signup-confirm-password').value;
-            const userType = document.querySelector('.user-type.active').getAttribute('data-type');
-            const agreeTerms = document.getElementById('agree-terms').checked;
-            
-            // Validation
-            if (!name || !email || !password || !confirmPassword) {
-                showMessage('Please fill in all fields', 'error');
-                return;
-            }
-            
-            if (!validateEmail(email)) {
-                showMessage('Please enter a valid email address', 'error');
-                return;
-            }
-            
-            if (password !== confirmPassword) {
-                showMessage('Passwords do not match', 'error');
-                return;
-            }
-            
-            if (password.length < 8) {
-                showMessage('Password must be at least 8 characters long', 'error');
-                return;
-            }
-            
-            if (!agreeTerms) {
-                showMessage('Please agree to the terms and conditions', 'error');
-                return;
-            }
-            
-            // Simulate registration process
-            showMessage('Account created successfully! Welcome to FoodShare.', 'success');
-            
-            // In a real application, you would make an API call here
-            setTimeout(() => {
-                // Redirect to appropriate page based on user type
-                // window.location.href = 'dashboard.html';
+                window.location.href = 'index.html';
             }, 1500);
         });
 
@@ -746,4 +444,3 @@
     </script>
 </body>
 </html>
-
