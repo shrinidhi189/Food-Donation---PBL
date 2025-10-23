@@ -45,6 +45,7 @@
             border-radius: 16px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            position: relative;
         }
 
         .auth-header {
@@ -70,6 +71,58 @@
 
         .auth-card {
             padding: 2.5rem;
+        }
+
+        /* Enhanced Error Message Styles - Hidden by default */
+        .form-message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            display: none;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .form-message.error {
+            background: rgba(244, 67, 54, 0.95);
+            color: white;
+            border-left: 4px solid #d32f2f;
+            box-shadow: 0 2px 10px rgba(244, 67, 54, 0.3);
+        }
+
+        .form-message.success {
+            background: rgba(76, 175, 80, 0.95);
+            color: white;
+            border-left: 4px solid #388e3c;
+            box-shadow: 0 2px 10px rgba(76, 175, 80, 0.3);
+        }
+
+        .form-message i {
+            margin-right: 8px;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
 
         .form-group {
@@ -98,8 +151,10 @@
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
         }
 
+        /* Only show error state after validation */
         .form-control.error {
             border-color: var(--error);
+            background-color: rgba(244, 67, 54, 0.05);
         }
 
         .password-input-container {
@@ -266,26 +321,6 @@
             transition: all 0.3s ease;
         }
 
-        .form-message {
-            padding: 0.75rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            text-align: center;
-            display: none;
-        }
-
-        .form-message.error {
-            background: rgba(244, 67, 54, 0.1);
-            color: var(--error);
-            display: block;
-        }
-
-        .form-message.success {
-            background: rgba(76, 175, 80, 0.1);
-            color: var(--success);
-            display: block;
-        }
-
         @media (max-width: 480px) {
             .auth-card {
                 padding: 2rem 1.5rem;
@@ -322,26 +357,26 @@
 
         <!-- Form Section -->
         <div class="auth-card">
-            <!-- Messages -->
-            <div class="form-message error" id="error-message"></div>
-            <div class="form-message success" id="success-message"></div>
+            <!-- Messages - Completely hidden until needed -->
+            <div class="form-message error" id="error-message" style="display: none;"></div>
+            <div class="form-message success" id="success-message" style="display: none;"></div>
 
             <!-- Signup Form -->
             <form id="signup-form">
                 <div class="form-group">
                     <label for="signup-name" class="form-label">Full Name</label>
-                    <input type="text" id="signup-name" class="form-control" placeholder="Enter your full name" required>
+                    <input type="text" id="signup-name" class="form-control" placeholder="Enter your full name">
                 </div>
 
                 <div class="form-group">
                     <label for="signup-email" class="form-label">Email Address</label>
-                    <input type="email" id="signup-email" class="form-control" placeholder="Enter your email" required>
+                    <input type="email" id="signup-email" class="form-control" placeholder="Enter your email">
                 </div>
 
                 <div class="form-group">
                     <label for="signup-password" class="form-label">Password</label>
                     <div class="password-input-container">
-                        <input type="password" id="signup-password" class="form-control" placeholder="Create a password" required>
+                        <input type="password" id="signup-password" class="form-control" placeholder="Create a password">
                         <button type="button" class="password-toggle" id="signup-password-toggle">
                             <i class="fas fa-eye"></i>
                         </button>
@@ -357,7 +392,7 @@
                 <div class="form-group">
                     <label for="signup-confirm-password" class="form-label">Confirm Password</label>
                     <div class="password-input-container">
-                        <input type="password" id="signup-confirm-password" class="form-control" placeholder="Confirm your password" required>
+                        <input type="password" id="signup-confirm-password" class="form-control" placeholder="Confirm your password">
                         <button type="button" class="password-toggle" id="signup-confirm-password-toggle">
                             <i class="fas fa-eye"></i>
                         </button>
@@ -383,7 +418,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="checkbox" id="agree-terms" required>
+                    <input type="checkbox" id="agree-terms">
                     <label for="agree-terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
                 </div>
 
@@ -416,6 +451,14 @@
         const signupForm = document.getElementById('signup-form');
         const errorMessage = document.getElementById('error-message');
         const successMessage = document.getElementById('success-message');
+        const nameInput = document.getElementById('signup-name');
+        const emailInput = document.getElementById('signup-email');
+        const passwordInput = document.getElementById('signup-password');
+        const confirmPasswordInput = document.getElementById('signup-confirm-password');
+        const termsCheckbox = document.getElementById('agree-terms');
+        
+        // Track if form has been submitted
+        let formSubmitted = false;
         
         // Password toggle functionality
         const passwordToggles = document.querySelectorAll('.password-toggle');
@@ -446,7 +489,6 @@
         });
 
         // Password strength indicator
-        const passwordInput = document.getElementById('signup-password');
         const strengthText = document.getElementById('strength-text');
         const strengthFill = document.getElementById('strength-fill');
         
@@ -487,10 +529,19 @@
             clearMessages();
             
             if (type === 'error') {
-                errorMessage.textContent = message;
+                errorMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
                 errorMessage.style.display = 'block';
+                
+                // Scroll to top to show error message
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Add shake animation to form
+                signupForm.classList.add('shake');
+                setTimeout(() => {
+                    signupForm.classList.remove('shake');
+                }, 500);
             } else if (type === 'success') {
-                successMessage.textContent = message;
+                successMessage.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
                 successMessage.style.display = 'block';
             }
         }
@@ -498,6 +549,14 @@
         function clearMessages() {
             errorMessage.style.display = 'none';
             successMessage.style.display = 'none';
+            
+            // Only clear error states if form hasn't been submitted yet
+            if (!formSubmitted) {
+                nameInput.classList.remove('error');
+                emailInput.classList.remove('error');
+                passwordInput.classList.remove('error');
+                confirmPasswordInput.classList.remove('error');
+            }
         }
 
         function validateEmail(email) {
@@ -508,37 +567,70 @@
         // Signup form submission
         signupForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            formSubmitted = true;
             
-            const name = document.getElementById('signup-name').value;
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
-            const confirmPassword = document.getElementById('signup-confirm-password').value;
+            const name = nameInput.value;
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
             const userType = document.querySelector('.user-type.active').getAttribute('data-type');
-            const agreeTerms = document.getElementById('agree-terms').checked;
+            const agreeTerms = termsCheckbox.checked;
+            
+            // Clear previous errors
+            nameInput.classList.remove('error');
+            emailInput.classList.remove('error');
+            passwordInput.classList.remove('error');
+            confirmPasswordInput.classList.remove('error');
             
             // Validation
-            if (!name || !email || !password || !confirmPassword) {
-                showMessage('Please fill in all fields', 'error');
-                return;
+            let hasError = false;
+            let errorMessages = [];
+            
+            if (!name) {
+                nameInput.classList.add('error');
+                hasError = true;
+                errorMessages.push('Full Name is required');
             }
             
-            if (!validateEmail(email)) {
-                showMessage('Please enter a valid email address', 'error');
-                return;
+            if (!email) {
+                emailInput.classList.add('error');
+                hasError = true;
+                errorMessages.push('Email is required');
+            } else if (!validateEmail(email)) {
+                emailInput.classList.add('error');
+                hasError = true;
+                errorMessages.push('Please enter a valid email address');
             }
             
-            if (password !== confirmPassword) {
-                showMessage('Passwords do not match', 'error');
-                return;
+            if (!password) {
+                passwordInput.classList.add('error');
+                hasError = true;
+                errorMessages.push('Password is required');
+            } else if (password.length < 8) {
+                passwordInput.classList.add('error');
+                hasError = true;
+                errorMessages.push('Password must be at least 8 characters long');
             }
             
-            if (password.length < 8) {
-                showMessage('Password must be at least 8 characters long', 'error');
-                return;
+            if (!confirmPassword) {
+                confirmPasswordInput.classList.add('error');
+                hasError = true;
+                errorMessages.push('Please confirm your password');
+            } else if (password !== confirmPassword) {
+                confirmPasswordInput.classList.add('error');
+                hasError = true;
+                errorMessages.push('Passwords do not match');
             }
             
             if (!agreeTerms) {
-                showMessage('Please agree to the terms and conditions', 'error');
+                hasError = true;
+                errorMessages.push('You must agree to the Terms and Conditions');
+            }
+            
+            if (hasError) {
+                // Show all error messages
+                const errorText = errorMessages.join('<br>');
+                showMessage(errorText, 'error');
                 return;
             }
             
@@ -563,4 +655,3 @@
     </script>
 </body>
 </html>
-
