@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sign Up - FoodShare</title>
+  <title>Contact Us - FoodShare</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     :root {
@@ -117,49 +117,63 @@
     .btn-primary:hover {
       background: var(--primary-dark);
     }
-    .auth-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 80vh;
-      padding: 2rem 0;
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+        url('https://images.unsplash.com/photo-1551135049-8a33b42738b4?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+      color: white;
+      padding: 6rem 2rem;
+      text-align: center;
+      border-radius: 8px;
+      margin: 2rem 0;
     }
-    .auth-card {
-      width: 100%;
-      max-width: 500px;
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    .contact-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+      margin: 3rem 0;
+    }
+    .contact-info {
       background: white;
       border-radius: 10px;
+      padding: 2rem;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 2.5rem;
     }
-    .auth-card h2 {
-      text-align: center;
+    .contact-info h2 {
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+    }
+    .contact-details {
       margin-bottom: 2rem;
-      color: var(--primary);
     }
-    .auth-tabs {
+    .contact-detail {
       display: flex;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid #eee;
+      align-items: center;
+      margin-bottom: 1rem;
     }
-    .auth-tab {
-      flex: 1;
-      text-align: center;
-      padding: 1rem;
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      transition: all 0.3s ease;
-    }
-    .auth-tab.active {
-      border-bottom: 3px solid var(--primary);
+    .contact-detail i {
+      font-size: 1.2rem;
       color: var(--primary);
-      font-weight: 600;
+      margin-right: 1rem;
+      width: 20px;
     }
-    .auth-form {
-      display: none;
+    .contact-form {
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    .auth-form.active {
-      display: block;
+    .contact-form h2 {
+      margin-bottom: 1.5rem;
+      color: var(--dark);
     }
     .form-group {
       margin-bottom: 1.5rem;
@@ -181,34 +195,45 @@
       border-color: var(--primary);
       outline: none;
     }
-    .user-type-selector {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
     }
-    .user-type {
-      flex: 1;
-      min-width: 120px;
+    .faq {
+      margin: 4rem 0;
+    }
+    .faq h2 {
       text-align: center;
-      padding: 1rem 0.5rem;
-      border: 2px solid #eee;
-      border-radius: 6px;
+      margin-bottom: 2rem;
+      color: var(--dark);
+    }
+    .faq-item {
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 1.5rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .user-type:hover {
-      border-color: var(--primary);
+    .faq-question:hover {
+      background: #f5f5f5;
     }
-    .user-type.active {
-      border-color: var(--primary);
-      background: rgba(76, 175, 80, 0.1);
+    .faq-answer {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
     }
-    .user-type i {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      display: block;
-      color: var(--primary);
+    .faq-answer.active {
+      padding: 0 1.5rem 1.5rem;
+      max-height: 500px;
     }
     footer {
       background: var(--dark);
@@ -297,6 +322,12 @@
       .mobile-menu-btn {
         display: block;
       }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      .hero p {
+        font-size: 1.1rem;
+      }
     }
   </style>
 </head>
@@ -313,9 +344,9 @@
           <li><a href="about.html">About Us</a></li>
           <li><a href="how-it-works.html">How It Works</a></li>
           <li><a href="partners.html">Delivery Partners</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html" style="color: var(--primary);">Contact</a></li>
           <li><a href="login.html" class="btn btn-outline">Login</a></li>
-          <li><a href="signup.html" class="btn btn-primary" style="background: var(--primary-dark);">Register</a></li>
+          <li><a href="signup.html" class="btn btn-primary">Register</a></li>
         </ul>
         <button class="mobile-menu-btn" id="mobileMenuBtn">
           <i class="fas fa-bars"></i>
@@ -334,86 +365,133 @@
       <li><a href="about.html">About Us</a></li>
       <li><a href="how-it-works.html">How It Works</a></li>
       <li><a href="partners.html">Delivery Partners</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="contact.html" style="color: var(--primary);">Contact</a></li>
       <li><a href="login.html" class="btn btn-outline" style="margin-top: 1rem;">Login</a></li>
-      <li><a href="signup.html" class="btn btn-primary" style="background: var(--primary-dark);">Register</a></li>
+      <li><a href="signup.html" class="btn btn-primary">Register</a></li>
     </ul>
   </div>
 
-  <div class="auth-container">
-    <div class="auth-card">
-      <h2>Join FoodShare</h2>
-      
-      <div class="auth-tabs">
-        <div class="auth-tab" data-tab="login" onclick="window.location.href='login.html'">Login</div>
-        <div class="auth-tab active" data-tab="signup">Sign Up</div>
-      </div>
+  <section class="hero">
+    <div class="container">
+      <h1>Contact Us</h1>
+      <p>Get in touch with our team</p>
+    </div>
+  </section>
 
-      <!-- Signup Form -->
-      <form id="signup-form" class="auth-form active">
-        <div class="form-group">
-          <label for="signup-name">Full Name</label>
-          <input type="text" id="signup-name" class="form-control" placeholder="Enter your full name" required>
-        </div>
-        <div class="form-group">
-          <label for="signup-email">Email</label>
-          <input type="email" id="signup-email" class="form-control" placeholder="Enter your email" required>
-        </div>
-        <div class="form-group">
-          <label for="signup-password">Password</label>
-          <input type="password" id="signup-password" class="form-control" placeholder="Create a password" required>
-        </div>
-        <div class="form-group">
-          <label for="signup-confirm-password">Confirm Password</label>
-          <input type="password" id="signup-confirm-password" class="form-control" placeholder="Confirm your password" required>
-        </div>
-        
-        <div class="form-group">
-          <label>Register as:</label>
-          <div class="user-type-selector">
-            <div class="user-type active" data-type="hotel">
-              <i class="fas fa-hotel"></i>
-              <span>Hotel/Restaurant</span>
-            </div>
-            <div class="user-type" data-type="individual">
-              <i class="fas fa-user"></i>
-              <span>Individual</span>
-            </div>
-            <div class="user-type" data-type="ngo">
-              <i class="fas fa-hands-helping"></i>
-              <span>NGO/Organization</span>
-            </div>
-            <div class="user-type" data-type="orphanage">
-              <i class="fas fa-home"></i>
-              <span>Orphanage</span>
-            </div>
-            <div class="user-type" data-type="community">
-              <i class="fas fa-users"></i>
-              <span>Community</span>
-            </div>
+  <div class="container">
+    <div class="contact-container">
+      <div class="contact-info">
+        <h2>Get In Touch</h2>
+        <div class="contact-details">
+          <div class="contact-detail">
+            <i class="fas fa-envelope"></i>
+            <span>info@foodshare.org</span>
+          </div>
+          <div class="contact-detail">
+            <i class="fas fa-phone"></i>
+            <span>(555) 123-FOOD</span>
+          </div>
+          <div class="contact-detail">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>123 Community Ave, City, State 12345</span>
+          </div>
+          <div class="contact-detail">
+            <i class="fas fa-clock"></i>
+            <span>Mon-Fri: 9am-6pm</span>
           </div>
         </div>
-        
-        <div class="form-group">
-          <label for="organization-name">Organization Name (if applicable)</label>
-          <input type="text" id="organization-name" class="form-control" placeholder="Your organization name">
+        <h3>Regional Offices</h3>
+        <div class="contact-details">
+          <div class="contact-detail">
+            <i class="fas fa-city"></i>
+            <span>North Region: (555) 123-1001</span>
+          </div>
+          <div class="contact-detail">
+            <i class="fas fa-city"></i>
+            <span>South Region: (555) 123-1002</span>
+          </div>
+          <div class="contact-detail">
+            <i class="fas fa-city"></i>
+            <span>East Region: (555) 123-1003</span>
+          </div>
+          <div class="contact-detail">
+            <i class="fas fa-city"></i>
+            <span>West Region: (555) 123-1004</span>
+          </div>
         </div>
-        
-        <div class="form-group">
-          <label for="phone-number">Phone Number</label>
-          <input type="tel" id="phone-number" class="form-control" placeholder="Your phone number" required>
+      </div>
+
+      <div class="contact-form">
+        <h2>Send Us a Message</h2>
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" class="form-control" placeholder="Subject of your message" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" class="form-control" placeholder="How can we help you?" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>How quickly can someone pick up my food donation?</span>
+          <i class="fas fa-chevron-down"></i>
         </div>
-        
-        <div class="form-group">
-          <label for="location">Location</label>
-          <input type="text" id="location" class="form-control" placeholder="Your city or area" required>
+        <div class="faq-answer">
+          <p>Pickup times vary based on location and availability, but we typically coordinate pickups within 2-4 hours of donation listing. For urgent donations, we prioritize quick matching with nearby recipients.</p>
         </div>
-        
-        <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
-        <div style="text-align: center; margin-top: 1rem;">
-          <p>By signing up, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>What types of food can I donate?</span>
+          <i class="fas fa-chevron-down"></i>
         </div>
-      </form>
+        <div class="faq-answer">
+          <p>We accept a wide variety of foods including prepared meals, fresh produce, packaged goods, and baked items. All donations must be safe for consumption and properly stored. We cannot accept expired items or food that has been temperature abused.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Is there a cost to use FoodShare?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>FoodShare is free for both donors and recipients. Our operations are supported through grants, donations, and partnerships. Delivery costs are covered by our partner network or volunteer drivers.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>How do I become a delivery partner?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Delivery partners can apply through our website. We work with both established delivery services and volunteer drivers. All partners receive training on safe food handling and our operational procedures.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>What areas do you currently serve?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>We currently operate in 15 major cities across the country and are expanding regularly. Check our website for the most up-to-date service areas, or contact us to inquire about expansion to your location.</p>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -447,4 +525,57 @@
           <ul>
             <li><i class="fas fa-envelope"></i> info@foodshare.org</li>
             <li><i class="fas fa-phone"></i> (555) 123-FOOD</li>
-            <li><i class="fas fa-map-marker-alt"></
+            <li><i class="fas fa-map-marker-alt"></i> 123 Community Ave, City</li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2025 FoodShare — Connecting surplus food with people in need.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu functionality
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    const closeMobileNav = document.getElementById('closeMobileNav');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileNav.classList.add('active');
+    });
+
+    closeMobileNav.addEventListener('click', () => {
+      mobileNav.classList.remove('active');
+    });
+
+    // FAQ functionality
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        const answer = question.nextElementSibling;
+        answer.classList.toggle('active');
+        
+        const icon = question.querySelector('i');
+        if (answer.classList.contains('active')) {
+          icon.classList.remove('fa-chevron-down');
+          icon.classList.add('fa-chevron-up');
+        } else {
+          icon.classList.remove('fa-chevron-up');
+          icon.classList.add('fa-chevron-down');
+        }
+      });
+    });
+
+    // Contact form submission
+    const contactForm = document.getElementById('contactForm');
+    
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thank you for your message! We will get back to you soon.');
+      contactForm.reset();
+    });
+  </script>
+</body>
+</html>
