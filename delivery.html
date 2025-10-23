@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Donate Food - FoodShare</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; background: #f9f9f9; color: #333; padding: 20px; }
+  .container { max-width: 600px; margin: auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 0 12px rgba(0,0,0,0.1); }
+  h2 { color: #4caf50; margin-bottom: 20px; text-align: center; }
+  label { display: block; margin-bottom: 6px; font-weight: 600; }
+  input, textarea, select {
+    width: 100%; padding: 10px; margin-bottom: 15px;
+    border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;
+    box-sizing: border-box;
+  }
+  textarea { resize: vertical; min-height: 80px; }
+  button {
+    background: #4caf50; border: none; color: white; padding: 12px;
+    border-radius: 4px; font-size: 1rem; cursor: pointer; width: 100%;
+  }
+  button:hover { background: #388e3c; }
+  
+  /* Enhanced styles for donation interface */
+  .delivery-section { display: none; margin-top: 20px; padding: 15px; background: #f5f5f5; border-radius: 4px; }
+  .delivery-options { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+  .delivery-option { 
+    flex: 1; min-width: 120px; text-align: center; padding: 10px; 
+    background: white; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;
+    transition: all 0.3s;
+  }
+  .delivery-option:hover { border-color: #4caf50; }
+  .delivery-option.selected { border-color: #4caf50; background: rgba(76, 175, 80, 0.1); }
+  .delivery-icon { font-size: 24px; margin-bottom: 5px; color: #4caf50; }
+  .confirmation { display: none; margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 4px; }
+  .urgency-indicator { 
+    display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem; 
+    margin-left: 10px; font-weight: normal;
+  }
+  .urgency-low { background: #e8f5e9; color: #2e7d32; }
+  .urgency-medium { background: #fff3e0; color: #ef6c00; }
+  .urgency-high { background: #ffebee; color: #c62828; }
+  .form-step { display: none; }
+  .form-step.active { display: block; }
+  .form-navigation { display: flex; justify-content: space-between; margin-top: 20px; }
+  .form-navigation button { width: 48%; }
+  .btn-secondary { background: #757575; }
+  .btn-secondary:hover { background: #616161; }
+  .progress-bar { display: flex; margin-bottom: 20px; }
+  .progress-step { flex: 1; text-align: center; padding: 10px; position: relative; }
+  .progress-step:not(:last-child):after {
+    content: ''; position: absolute; top: 20px; right: -50%; 
+    width: 100%; height: 2px; background: #ddd; z-index: 1;
+  }
+  .progress-step.active:not(:last-child):after { background: #4caf50; }
+  .step-number { 
+    width: 30px; height: 30px; border-radius: 50%; background: #ddd; 
+    display: inline-flex; align-items: center; justify-content: center; 
+    margin-bottom: 5px; z-index: 2; position: relative;
+  }
+  .progress-step.active .step-number { background: #4caf50; color: white; }
+  .progress-step.completed .step-number { background: #4caf50; color: white; }
+  .delivery-estimate { margin-top: 10px; font-size: 0.9rem; color: #666; }
+  .food-categories { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; }
+  .food-category { 
+    flex: 1; min-width: 120px; text-align: center; padding: 10px; 
+    background: white; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;
+    transition: all 0.3s;
+  }
+  .food-category:hover { border-color: #4caf50; }
+  .food-category.selected { border-color: #4caf50; background: rgba(76, 175, 80, 0.1); }
+  .food-icon { font-size: 24px; margin-bottom: 5px; color: #4caf50; }
+  .quantity-options { display: flex; gap: 10px; margin-bottom: 15px; }
+  .quantity-option { 
+    flex: 1; text-align: center; padding: 10px; 
+    background: white; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;
+    transition: all 0.3s;
+  }
+  .quantity-option:hover { border-color: #4caf50; }
+  .quantity-option.selected { border-color: #4caf50; background: rgba(76, 175, 80, 0.1); }
+  .impact-metric { 
+    text-align: center; padding: 15px; margin: 10px 0; 
+    background: #e8f5e9; border-radius: 4px; border-left: 4px solid #4caf50;
+  }
+  
+  /* New styles for time selection */
+  .time-selection { display: flex; gap: 10px; margin-bottom: 15px; }
+  .time-selection select { margin-bottom: 0; }
+  .time-separator { 
+    display: flex; align-items: center; justify-content: center; 
+    font-weight: bold; color: #666; width: 30px; 
+  }
+  .time-option { 
+    flex: 1; text-align: center; padding: 10px; 
+    background: white; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;
+    transition: all 0.3s; margin-bottom: 15px;
+  }
+  .time-option:hover { border-color: #4caf50; }
+  .time-option.selected { border-color: #4caf50; background: rgba(76, 175, 80, 0.1); }
+  .time-error { 
+    color: #f44336; font-size: 0.9rem; margin-top: -10px; 
+    margin-bottom: 15px; display: none;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Donate Food</h2>
+    
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+      <div class="progress-step active">
+        <div class="step-number">1</div>
+        <div>Food Details</div>
+      </div>
+      <div class="progress-step">
+        <div class="step-number">2</div>
+        <div>Pickup/Delivery</div>
+      </div>
+      <div class="progress-step">
+        <div class="step-number">3</div>
+        <div>Review</div>
+      </div>
+    </div>
+    
+    <form id="donation-form">
+      <!-- Step 1: Food Details -->
+      <div class="form-step active" id="step1">
+        <label for="donor-name">Your Name / Organization</label>
+        <input type="text" id="donor-name" required placeholder="Your name or organization" />
+        
+        <label for="donor-contact">Contact Information</label>
+        <input type="text" id="donor-contact" required placeholder="Phone number or email" />
+        
+        <label>Food Category</label>
+        <div class="food-categories">
+          <div class="food-category" data-category="cooked">
+            <div class="food-icon">🍽️</div>
+            <div>Cooked Meals</div>
+          </div>
+          <div class="food-category" data-category="groceries">
+            <div class="food-icon">🛒</div>
+            <div>Groceries</div>
+          </div>
+          <div class="food-category" data-category="fresh">
+            <div class="food-icon">🥦</div>
+            <div>Fresh Produce</div>
+          </div>
+          <div class="food-category" data-category="packaged">
+            <div class="food-icon">📦</div>
+            <div>Packaged Food</div>
+          </div>
+        </div>
+        
+        <label for="food-description">Food Description</label>
+        <textarea id="food-description" required placeholder="Describe the food items, ingredients, etc."></textarea>
+        
+        <label for="quantity">Quantity</label>
+        <div class="quantity-options">
+          <div class="quantity-option" data-quantity="small">
+            <div>Small</div>
+            <div>1-5 people</div>
+          </div>
+          <div class="quantity-option" data-quantity="medium">
+            <div>Medium</div>
+            <div>6-15 people</div>
+          </div>
+          <div class="quantity-option" data-quantity="large">
+            <div>Large</div>
+            <div>16+ people</div>
+          </div>
+        </div>
+        
+        <label for="expiry-time">Best Before</label>
+        <select id="expiry-time" required>
+          <option value="" disabled selected>Select expiry time</option>
+          <option value="2hrs">Within 2 hours</option>
+          <option value="today">Today</option>
+          <option value="tomorrow">Tomorrow</option>
+          <option value="3days">Within 3 days</option>
+          <option value="week">Within a week</option>
+        </select>
+        
+        <label for="storage-instructions">Storage Instructions</label>
+        <textarea id="storage-instructions" placeholder="How should this food be stored?"></textarea>
+        
+        <label for="allergens">Allergens (if any)</label>
+        <input type="text" id="allergens" placeholder="e.g., nuts, gluten, dairy" />
+        
+        <div class="impact-metric">
+          <h3>Your Impact</h3>
+          <p id="impact-estimate">This donation could feed approximately <strong>0 people</strong></p>
+          <p id="waste-saved">and save <strong>0 kg</strong> of food from waste</p>
+        </div>
+        
+        <div class="form-navigation">
+          <button type="button" class="btn-secondary" disabled>Previous</button>
+          <button type="button" id="next-to-step2">Next</button>
+        </div>
+      </div>
+      
+      <!-- Step 2: Pickup/Delivery Options -->
+      <div class="form-step" id="step2">
+        <h3>Pickup & Delivery Options</h3>
+        
+        <label for="pickup-location">Pickup Location</label>
+        <input type="text" id="pickup-location" required placeholder="Your address or pickup point" />
+        
+        <label>Available Time Window</label>
+        
+        <!-- Quick time options -->
+        <div style="margin-bottom: 15px;">
+          <div style="font-size: 0.9rem; margin-bottom: 8px; color: #666;">Quick select:</div>
+          <div style="display: flex; gap: 10px;">
+            <div class="time-option" data-time="morning">
+              <div>Morning</div>
+              <div style="font-size: 0.8rem;">8AM - 12PM</div>
+            </div>
+            <div class="time-option" data-time="afternoon">
+              <div>Afternoon</div>
+              <div style="font-size: 0.8rem;">12PM - 5PM</div>
+            </div>
+            <div class="time-option" data-time="evening">
+              <div>Evening</div>
+              <div style="font-size: 0.8rem;">5PM - 9PM</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Custom time selection -->
+        <div style="font-size: 0.9rem; margin-bottom: 8px; color: #666;">Or set custom time:</div>
+        <div class="time-selection">
+          <select id="time-from" required>
+            <option value="" disabled selected>From</option>
+            <!-- Options will be populated by JavaScript -->
+          </select>
+          <div class="time-separator">to</div>
+          <select id="time-to" required>
+            <option value="" disabled selected>To</option>
+            <!-- Options will be populated by JavaScript -->
+          </select>
+        </div>
+        <div class="time-error" id="time-error">End time must be after start time</div>
+        
+        <div id="delivery-question">
+          <p>Can you arrange delivery?</p>
+          <div style="display: flex; gap: 10px;">
+            <button type="button" id="delivery-yes" style="width: 48%;">Yes, I can deliver</button>
+            <button type="button" id="delivery-no" style="width: 48%;" class="btn-secondary">Pickup only</button>
+          </div>
+        </div>
+        
+        <div class="delivery-section" id="delivery-options">
+          <p>Select delivery method:</p>
+          <div class="delivery-options">
+            <div class="delivery-option" data-delivery="self">
+              <div class="delivery-icon">🚗</div>
+              <div>Self Delivery</div>
+              <div class="delivery-estimate">I will deliver myself</div>
+            </div>
+            <div class="delivery-option" data-delivery="partner">
+              <div class="delivery-icon">🤝</div>
+              <div>Delivery Partner</div>
+              <div class="delivery-estimate">Use our partners</div>
+            </div>
+          </div>
+          
+          <div id="delivery-partners" style="margin-top: 15px; display: none;">
+            <p>Select a delivery partner:</p>
+            <div class="delivery-options">
+              <div class="delivery-option" data-partner="uber">
+                <div class="delivery-icon">🚗</div>
+                <div>Uber</div>
+                <div class="delivery-estimate">15-30 min</div>
+              </div>
+              <div class="delivery-option" data-partner="rapido">
+                <div class="delivery-icon">🏍️</div>
+                <div>Rapido</div>
+                <div class="delivery-estimate">10-20 min</div>
+              </div>
+              <div class="delivery-option" data-partner="ola">
+                <div class="delivery-icon">🚕</div>
+                <div>Ola</div>
+                <div class="delivery-estimate">15-30 min</div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="delivery-details" style="margin-top: 15px; display: none;">
+            <label for="delivery-instructions">Delivery Instructions</label>
+            <textarea id="delivery-instructions" placeholder="Specific instructions for pickup/delivery"></textarea>
+            
+            <label for="delivery-radius">Delivery Radius (if self-delivering)</label>
+            <select id="delivery-radius">
+              <option value="5km">Within 5 km</option>
+              <option value="10km">Within 10 km</option>
+              <option value="15km">Within 15 km</option>
+              <option value="20km">Within 20 km</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-navigation">
+          <button type="button" class="btn-secondary" id="back-to-step1">Previous</button>
+          <button type="button" id="next-to-step3">Next</button>
+        </div>
+      </div>
+      
+      <!-- Step 3: Review and Submit -->
+      <div class="form-step" id="step3">
+        <h3>Review Your Donation</h3>
+        
+        <div id="review-summary">
+          <!-- Summary will be populated by JavaScript -->
+        </div>
+        
+        <div class="impact-metric">
+          <h3>Thank You for Donating!</h3>
+          <p id="final-impact">Your donation will make a real difference in someone's life.</p>
+        </div>
+        
+        <div class="form-navigation">
+          <button type="button" class="btn-secondary" id="back-to-step2">Previous</button>
+          <button type="submit" id="submit-donation">Submit Donation</button>
+        </div>
+      </div>
+    </form>
+    
+    <div class="confirmation" id="confirmation">
+      <h3>Donation Submitted Successfully!</h3>
+      <p>Your food donation has been listed. People in need will be notified.</p>
+      <p id="delivery-confirmation"></p>
+      <p><strong>Donation ID:</strong> <span id="donation-id"></span></p>
+      <p><strong>Available Time:</strong> <span id="time-confirmation"></span></p>
+      <p><strong>Estimated Impact:</strong> <span id="impact-confirmation"></span></p>
+      <button type="button" id="new-donation">Make Another Donation</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Form elements
+      const form = document.getElementById('donation-form');
+      const steps = document.querySelectorAll('.form-step');
+      const progressSteps = document.querySelectorAll('.progress-step');
+      const nextToStep2 = document.getElementById('next-to-step2');
+      const nextToStep3 = document.getElementById('next-to-step3');
+      const backToStep1 = document.getElementById('back-to-step1');
+      const backToStep2 = document.getElementById('back-to-step2');
+      const deliveryYes = document.getElementById('delivery-yes');
+      const deliveryNo = document.getElementById('delivery-no');
+      const deliveryOptions = document.querySelectorAll('.delivery-option');
+      const deliverySection = document.getElementById('delivery-options');
+      const deliveryPartners = document.getElementById('delivery-partners');
+      const deliveryDetails = document.getElementById('delivery-details');
+      const confirmation = document.getElementById('confirmation');
+      const reviewSummary = document.getElementById('review-summary');
+      const deliveryConfirmation = document.getElementById('delivery-confirmation');
+      const donationId = document.getElementById('donation-id');
+      const timeConfirmation = document.getElementById('time-confirmation');
+      const impactConfirmation = document.getElementById('impact-confirmation');
+      const newDonationBtn = document.getElementById('new-donation');
+      const foodCategories = document.querySelectorAll('.food-category');
+      const quantityOptions = document.querySelectorAll('.quantity-option');
+      const impactEstimate = document.getElementById('impact-estimate');
+      const wasteSaved = document.getElementById('waste-saved');
+      const finalImpact = document.getElementById('final-impact');
+      const timeFrom = document.getElementById('time-from');
+      const timeTo = document.getElementById('time-to');
+      const timeError = document.getElementById('time-error');
+      const timeOptions = document.querySelectorAll('.time-option');
+      
+      // Time options
+      const timeSlots = [];
+      for (let hour = 0; hour < 24; hour++) {
+        for (let minute = 0; minute < 60; minute += 30) {
+          const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+          timeSlots.push(timeString);
+        }
+      }
+      
+      // Populate time dropdowns
+      timeSlots.forEach(time => {
+        const optionFrom = document.createElement('option');
+        optionFrom.value = time;
+        optionFrom.textContent = formatTime(time);
+        timeFrom.appendChild(optionFrom);
+        
+        const optionTo = document.createElement('option');
+        optionTo.value = time;
+        optionTo.textContent = formatTime(time);
+        timeTo.appendChild(optionTo);
+      });
+      
+      // Format time for display (12-hour format)
+      function formatTime(timeString) {
+        const [hours, minutes] = timeString.split(':');
+        const hour = parseInt(hours);
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        const displayHour = hour % 12 || 12;
+        return `${displayHour}:${minutes} ${ampm}`;
+      }
+      
+      // Form data storage
+      let formData = {
+        delivery: {
+          available: false,
+          method: null,
+          partner: null,
+          instructions: '',
+          radius: '5km'
+        },
+        time: {
+          from: '',
+          to: '',
+          display: ''
+        }
+      };
+      
+      // Impact calculations based on quantity
+      const impactMap = {
+        'small': { people: 3, waste: 2 },
+        'medium': { people: 10, waste: 5 },
+        'large': { people: 25, waste: 12 }
+      };
+      
+      // Time presets
+      const timePresets = {
+        'morning': { from: '08:00', to: '12:00', display: 'Morning (8:00 AM - 12:00 PM)' },
+        'afternoon': { from: '12:00', to: '17:00', display: 'Afternoon (12:00 PM - 5:00 PM)' },
+        'evening': { from: '17:00', to: '21:00', display: 'Evening (5:00 PM - 9:00 PM)' }
+      };
+      
+      // Step navigation
+      function goToStep(stepNumber) {
+        steps.forEach(step => step.classList.remove('active'));
+        document.getElementById(`step${stepNumber}`).classList.add('active');
+        
+        // Update progress bar
+        progressSteps.forEach((step, index) => {
+          step.classList.remove('active', 'completed');
+          if (index < stepNumber - 1) {
+            step.classList.add('completed');
+          }
+        });
+        progressSteps[stepNumber - 1].classList.add('active');
+      }
+      
+      // Food category selection
+      foodCategories.forEach(category => {
+        category.addEventListener('click', function() {
+          foodCategories.forEach(cat => cat.classList.remove('selected'));
+          this.classList.add('selected');
+          formData.foodCategory = this.getAttribute('data-category');
+        });
+      });
+      
+      // Quantity selection
+      quantityOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          quantityOptions.forEach(opt => opt.classList.remove('selected'));
+          this.classList.add('selected');
+          formData.quantity = this.getAttribute('data-quantity');
+          
+          // Update impact metrics
+          const impact = impactMap[formData.quantity];
+          if (impact) {
+            impactEstimate.innerHTML = `This donation could feed approximately <strong>${impact.people} people</strong>`;
+            wasteSaved.innerHTML = `and save <strong>${impact.waste} kg</strong> of food from waste`;
+          }
+        });
+      });
+      
+      // Time option selection
+      timeOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          timeOptions.forEach(opt => opt.classList.remove('selected'));
+          this.classList.add('selected');
+          
+          const preset = timePresets[this.getAttribute('data-time')];
+          if (preset) {
+            timeFrom.value = preset.from;
+            timeTo.value = preset.to;
+            formData.time.from = preset.from;
+            formData.time.to = preset.to;
+            formData.time.display = preset.display;
+            timeError.style.display = 'none';
+          }
+        });
+      });
+      
+      // Validate time selection
+      function validateTime() {
+        const fromValue = timeFrom.value;
+        const toValue = timeTo.value;
+        
+        if (!fromValue || !toValue) {
+          timeError.style.display = 'block';
+          timeError.textContent = 'Please select both start and end times';
+          return false;
+        }
+        
+        if (fromValue >= toValue) {
+          timeError.style.display = 'block';
+          timeError.textContent = 'End time must be after start time';
+          return false;
+        }
+        
+        timeError.style.display = 'none';
+        
+        // Store time data
+        formData.time.from = fromValue;
+        formData.time.to = toValue;
+        formData.time.display = `${formatTime(fromValue)} - ${formatTime(toValue)}`;
+        
+        return true;
+      }
+      
+      // Time change listeners
+      timeFrom.addEventListener('change', function() {
+        validateTime();
+        // Clear quick selection when custom time is set
+        timeOptions.forEach(opt => opt.classList.remove('selected'));
+      });
+      
+      timeTo.addEventListener('change', function() {
+        validateTime();
+        // Clear quick selection when custom time is set
+        timeOptions.forEach(opt => opt.classList.remove('selected'));
+      });
+      
+      // Next to Step 2
+      nextToStep2.addEventListener('click', function() {
+        // Validate step 1
+        const name = document.getElementById('donor-name').value;
+        const contact = document.getElementById('donor-contact').value;
+        const description = document.getElementById('food-description').value;
+        const expiry = document.getElementById('expiry-time').value;
+        
+        if (!name || !contact || !formData.foodCategory || !description || !expiry || !formData.quantity) {
+          alert('Please fill in all required fields and select food category and quantity');
+          return;
+        }
+        
+        // Store form data
+        formData.name = name;
+        formData.contact = contact;
+        formData.description = description;
+        formData.expiry = expiry;
+        formData.storageInstructions = document.getElementById('storage-instructions').value;
+        formData.allergens = document.getElementById('allergens').value;
+        
+        goToStep(2);
+      });
+      
+      // Delivery option selection
+      deliveryYes.addEventListener('click', function() {
+        formData.delivery.available = true;
+        deliverySection.style.display = 'block';
+      });
+      
+      deliveryNo.addEventListener('click', function() {
+        formData.delivery.available = false;
+        deliverySection.style.display = 'none';
+        deliveryPartners.style.display = 'none';
+        deliveryDetails.style.display = 'none';
+      });
+      
+      // Delivery method selection
+      deliveryOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          // Clear previous selections
+          deliveryOptions.forEach(opt => {
+            if (opt.closest('#delivery-options')) {
+              opt.classList.remove('selected');
+            }
+          });
+          
+          this.classList.add('selected');
+          formData.delivery.method = this.getAttribute('data-delivery');
+          
+          if (formData.delivery.method === 'partner') {
+            deliveryPartners.style.display = 'block';
+            deliveryDetails.style.display = 'block';
+          } else {
+            deliveryPartners.style.display = 'none';
+            deliveryDetails.style.display = 'block';
+          }
+        });
+      });
+      
+      // Delivery partner selection
+      document.querySelectorAll('#delivery-partners .delivery-option').forEach(option => {
+        option.addEventListener('click', function() {
+          document.querySelectorAll('#delivery-partners .delivery-option').forEach(opt => {
+            opt.classList.remove('selected');
+          });
+          this.classList.add('selected');
+          formData.delivery.partner = this.getAttribute('data-partner');
+        });
+      });
+      
+      // Next to Step 3
+      nextToStep3.addEventListener('click', function() {
+        const location = document.getElementById('pickup-location').value;
+        
+        if (!location) {
+          alert('Please fill in all required fields');
+          return;
+        }
+        
+        // Validate time selection
+        if (!validateTime()) {
+          return;
+        }
+        
+        // Store form data
+        formData.location = location;
+        
+        if (formData.delivery.available) {
+          if (!formData.delivery.method) {
+            alert('Please select a delivery method');
+            return;
+          }
+          
+          if (formData.delivery.method === 'partner' && !formData.delivery.partner) {
+            alert('Please select a delivery partner');
+            return;
+          }
+          
+          formData.delivery.instructions = document.getElementById('delivery-instructions').value;
+          formData.delivery.radius = document.getElementById('delivery-radius').value;
+        }
+        
+        // Generate and display review summary
+        generateReviewSummary();
+        goToStep(3);
+      });
+      
+      // Back to Step 1
+      backToStep1.addEventListener('click', function() {
+        goToStep(1);
+      });
+      
+      // Back to Step 2
+      backToStep2.addEventListener('click', function() {
+        goToStep(2);
+      });
+      
+      // Form submission
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Generate a donation ID
+        const generatedId = 'DN' + Date.now().toString().substr(-6);
+        donationId.textContent = generatedId;
+        
+        // Show time confirmation
+        timeConfirmation.textContent = formData.time.display;
+        
+        // Show delivery confirmation if needed
+        if (formData.delivery.available) {
+          if (formData.delivery.method === 'self') {
+            deliveryConfirmation.textContent = 'You will be responsible for delivering the food.';
+          } else {
+            const partnerNames = {
+              'uber': 'Uber',
+              'rapido': 'Rapido',
+              'ola': 'Ola'
+            };
+            deliveryConfirmation.textContent = `A delivery partner (${partnerNames[formData.delivery.partner]}) will be arranged for pickup.`;
+          }
+        } else {
+          deliveryConfirmation.textContent = 'Recipients will need to pick up the food from your location.';
+        }
+        
+        // Show impact confirmation
+        const impact = impactMap[formData.quantity];
+        impactConfirmation.textContent = `Feeding ${impact.people} people and saving ${impact.waste} kg of food from waste`;
+        
+        // Show confirmation
+        confirmation.style.display = 'block';
+        form.style.display = 'none';
+        
+        // In a real app, you would send the formData to a server here
+        console.log('Donation submitted:', formData);
+      });
+      
+      // New donation button
+      newDonationBtn.addEventListener('click', function() {
+        // Reset form
+        form.reset();
+        formData = {
+          delivery: {
+            available: false,
+            method: null,
+            partner: null,
+            instructions: '',
+            radius: '5km'
+          },
+          time: {
+            from: '',
+            to: '',
+            display: ''
+          }
+        };
+        
+        // Reset UI
+        foodCategories.forEach(cat => cat.classList.remove('selected'));
+        quantityOptions.forEach(opt => opt.classList.remove('selected'));
+        timeOptions.forEach(opt => opt.classList.remove('selected'));
+        deliveryOptions.forEach(opt => opt.classList.remove('selected'));
+        deliverySection.style.display = 'none';
+        deliveryPartners.style.display = 'none';
+        deliveryDetails.style.display = 'none';
+        timeError.style.display = 'none';
+        confirmation.style.display = 'none';
+        form.style.display = 'block';
+        
+        // Reset impact metrics
+        impactEstimate.innerHTML = `This donation could feed approximately <strong>0 people</strong>`;
+        wasteSaved.innerHTML = `and save <strong>0 kg</strong> of food from waste`;
+        
+        // Go back to step 1
+        goToStep(1);
+      });
+      
+      // Generate review summary
+      function generateReviewSummary() {
+        const categoryText = {
+          'cooked': 'Cooked Meals',
+          'groceries': 'Groceries',
+          'fresh': 'Fresh Produce',
+          'packaged': 'Packaged Food'
+        };
+        
+        const quantityText = {
+          'small': 'Small (1-5 people)',
+          'medium': 'Medium (6-15 people)',
+          'large': 'Large (16+ people)'
+        };
+        
+        const expiryText = {
+          '2hrs': 'Within 2 hours',
+          'today': 'Today',
+          'tomorrow': 'Tomorrow',
+          '3days': 'Within 3 days',
+          'week': 'Within a week'
+        };
+        
+        let summaryHTML = `
+          <p><strong>Donor:</strong> ${formData.name}</p>
+          <p><strong>Contact:</strong> ${formData.contact}</p>
+          <p><strong>Food Category:</strong> ${categoryText[formData.foodCategory]}</p>
+          <p><strong>Description:</strong> ${formData.description}</p>
+          <p><strong>Quantity:</strong> ${quantityText[formData.quantity]}</p>
+          <p><strong>Best Before:</strong> ${expiryText[formData.expiry]}</p>
+          <p><strong>Pickup Location:</strong> ${formData.location}</p>
+          <p><strong>Available Time:</strong> ${formData.time.display}</p>
+        `;
+        
+        if (formData.storageInstructions) {
+          summaryHTML += `<p><strong>Storage Instructions:</strong> ${formData.storageInstructions}</p>`;
+        }
+        
+        if (formData.allergens) {
+          summaryHTML += `<p><strong>Allergens:</strong> ${formData.allergens}</p>`;
+        }
+        
+        if (formData.delivery.available) {
+          if (formData.delivery.method === 'self') {
+            summaryHTML += `<p><strong>Delivery:</strong> Self delivery (within ${formData.delivery.radius})</p>`;
+          } else {
+            const partnerNames = {
+              'uber': 'Uber',
+              'rapido': 'Rapido',
+              'ola': 'Ola'
+            };
+            summaryHTML += `<p><strong>Delivery:</strong> Via ${partnerNames[formData.delivery.partner]}</p>`;
+          }
+          
+          if (formData.delivery.instructions) {
+            summaryHTML += `<p><strong>Delivery Instructions:</strong> ${formData.delivery.instructions}</p>`;
+          }
+        } else {
+          summaryHTML += `<p><strong>Delivery:</strong> Pickup only</p>`;
+        }
+        
+        // Update final impact message
+        const impact = impactMap[formData.quantity];
+        finalImpact.textContent = `Your donation will feed approximately ${impact.people} people and save ${impact.waste} kg of food from waste.`;
+        
+        reviewSummary.innerHTML = summaryHTML;
+      }
+    });
+  </script>
+</body>
+</html>

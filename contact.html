@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign Up - FoodShare</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #4caf50;
+      --primary-dark: #388e3c;
+      --secondary: #ff9800;
+      --secondary-dark: #f57c00;
+      --gray: #757575;
+      --dark: #333;
+      --light: #f9f9f9;
+      --white: #ffffff;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1200px;
+      width: 90%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      background: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+    }
+    .logo i {
+      margin-right: 10px;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 600;
+      transition: color 0.3s ease;
+      padding: 0.5rem 0;
+      position: relative;
+      white-space: nowrap;
+    }
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    .auth-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+    .btn {
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      border: none;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+    .auth-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+      padding: 2rem 0;
+    }
+    .auth-card {
+      width: 100%;
+      max-width: 500px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 2.5rem;
+    }
+    .auth-card h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--primary);
+    }
+    .auth-tabs {
+      display: flex;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #eee;
+    }
+    .auth-tab {
+      flex: 1;
+      text-align: center;
+      padding: 1rem;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
+    .auth-tab.active {
+      border-bottom: 3px solid var(--primary);
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .auth-form {
+      display: none;
+    }
+    .auth-form.active {
+      display: block;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    .form-control {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border 0.3s ease;
+    }
+    .form-control:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+    .user-type-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .user-type {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 1rem 0.5rem;
+      border: 2px solid #eee;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .user-type:hover {
+      border-color: var(--primary);
+    }
+    .user-type.active {
+      border-color: var(--primary);
+      background: rgba(76, 175, 80, 0.1);
+    }
+    .user-type i {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      display: block;
+      color: var(--primary);
+    }
+    footer {
+      background: var(--dark);
+      color: #aaa;
+      padding: 3rem 1rem;
+      margin-top: 3rem;
+    }
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .footer-section h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .footer-section ul {
+      list-style: none;
+    }
+    .footer-section ul li {
+      margin-bottom: 0.5rem;
+    }
+    .footer-section a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .footer-section a:hover {
+      color: var(--primary);
+    }
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid #444;
+    }
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--dark);
+      cursor: pointer;
+    }
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100%;
+      background: white;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+      transition: right 0.3s ease;
+      z-index: 999;
+      padding: 2rem;
+    }
+    .mobile-nav.active {
+      right: 0;
+    }
+    .mobile-nav ul {
+      list-style: none;
+      margin-top: 2rem;
+    }
+    .mobile-nav ul li {
+      margin-bottom: 1.5rem;
+    }
+    .mobile-nav ul a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .close-mobile-nav {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      .nav-links, .auth-buttons {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <i class="fas fa-utensils"></i>
+          FoodShare
+        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="partners.html">Delivery Partners</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="login.html" class="btn btn-outline">Login</a></li>
+          <li><a href="signup.html" class="btn btn-primary" style="background: var(--primary-dark);">Register</a></li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav" id="mobileNav">
+    <button class="close-mobile-nav" id="closeMobileNav">
+      <i class="fas fa-times"></i>
+    </button>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="partners.html">Delivery Partners</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html" class="btn btn-outline" style="margin-top: 1rem;">Login</a></li>
+      <li><a href="signup.html" class="btn btn-primary" style="background: var(--primary-dark);">Register</a></li>
+    </ul>
+  </div>
+
+  <div class="auth-container">
+    <div class="auth-card">
+      <h2>Join FoodShare</h2>
+      
+      <div class="auth-tabs">
+        <div class="auth-tab" data-tab="login" onclick="window.location.href='login.html'">Login</div>
+        <div class="auth-tab active" data-tab="signup">Sign Up</div>
+      </div>
+
+      <!-- Signup Form -->
+      <form id="signup-form" class="auth-form active">
+        <div class="form-group">
+          <label for="signup-name">Full Name</label>
+          <input type="text" id="signup-name" class="form-control" placeholder="Enter your full name" required>
+        </div>
+        <div class="form-group">
+          <label for="signup-email">Email</label>
+          <input type="email" id="signup-email" class="form-control" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="signup-password">Password</label>
+          <input type="password" id="signup-password" class="form-control" placeholder="Create a password" required>
+        </div>
+        <div class="form-group">
+          <label for="signup-confirm-password">Confirm Password</label>
+          <input type="password" id="signup-confirm-password" class="form-control" placeholder="Confirm your password" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Register as:</label>
+          <div class="user-type-selector">
+            <div class="user-type active" data-type="hotel">
+              <i class="fas fa-hotel"></i>
+              <span>Hotel/Restaurant</span>
+            </div>
+            <div class="user-type" data-type="individual">
+              <i class="fas fa-user"></i>
+              <span>Individual</span>
+            </div>
+            <div class="user-type" data-type="ngo">
+              <i class="fas fa-hands-helping"></i>
+              <span>NGO/Organization</span>
+            </div>
+            <div class="user-type" data-type="orphanage">
+              <i class="fas fa-home"></i>
+              <span>Orphanage</span>
+            </div>
+            <div class="user-type" data-type="community">
+              <i class="fas fa-users"></i>
+              <span>Community</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="organization-name">Organization Name (if applicable)</label>
+          <input type="text" id="organization-name" class="form-control" placeholder="Your organization name">
+        </div>
+        
+        <div class="form-group">
+          <label for="phone-number">Phone Number</label>
+          <input type="tel" id="phone-number" class="form-control" placeholder="Your phone number" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input type="text" id="location" class="form-control" placeholder="Your city or area" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+        <div style="text-align: center; margin-top: 1rem;">
+          <p>By signing up, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>FoodShare</h3>
+          <p>Connecting surplus food with people in need to reduce waste and fight hunger.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="how-it-works.html">How It Works</a></li>
+            <li><a href="partners.html">Delivery Partners</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="#">Food Safety Guidelines</a></li>
+            <li><a href="#">Partner Organizations</a></li>
+            <li><a href="#">Volunteer Opportunities</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact</h3>
+          <ul>
+            <li><i class="fas fa-envelope"></i> info@foodshare.org</li>
+            <li><i class="fas fa-phone"></i> (555) 123-FOOD</li>
+            <li><i class="fas fa-map-marker-alt"></
