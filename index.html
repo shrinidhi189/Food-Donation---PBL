@@ -41,61 +41,61 @@
       z-index: 1000;
     }
     /* --- Optimized Navigation Section --- */
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.8rem 0;
-  flex-wrap: wrap;
-}
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 0;
+      flex-wrap: wrap;
+    }
 
-.logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: var(--primary);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-}
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
 
-.nav-links {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  gap: 2rem; /* Increased gap for better spacing */
-  align-items: center;
-  justify-content: center;
-}
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      gap: 2rem; /* Increased gap for better spacing */
+      align-items: center;
+      justify-content: center;
+    }
 
-.nav-links a {
-  text-decoration: none;
-  color: var(--dark);
-  font-weight: 600;
-  transition: color 0.3s ease;
-  padding: 0.5rem 0.2rem;
-  position: relative;
-  white-space: nowrap;
-  font-size: 1rem; /* slightly reduced for balance */
-}
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 600;
+      transition: color 0.3s ease;
+      padding: 0.5rem 0.2rem;
+      position: relative;
+      white-space: nowrap;
+      font-size: 1rem; /* slightly reduced for balance */
+    }
 
-.auth-buttons {
-  display: flex;
-  gap: 1.2rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+    .auth-buttons {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
-/* Small screen adjustments */
-@media (max-width: 992px) {
-  .nav-links {
-    gap: 1.2rem;
-    justify-content: center;
-  }
-  .nav-links a {
-    font-size: 0.95rem;
-  }
-}
+    /* Small screen adjustments */
+    @media (max-width: 992px) {
+      .nav-links {
+        gap: 1.2rem;
+        justify-content: center;
+      }
+      .nav-links a {
+        font-size: 0.95rem;
+      }
+    }
 
     .nav-links a:hover {
       color: var(--primary);
@@ -607,6 +607,47 @@ nav {
       border: none;
       cursor: pointer;
     }
+    
+    /* Login/Register Section */
+    .welcome-section {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+      border-radius: 8px;
+      margin: 2rem 0;
+    }
+    .welcome-section h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .welcome-section p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    
+    /* User Profile in Nav */
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    .user-name {
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -617,14 +658,8 @@ nav {
           <i class="fas fa-utensils"></i>
           FoodShare
         </div>
-        <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="how-it-works.html">How It Works</a></li>
-          <li><a href="partners.html">Delivery Partners</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="login.html" class="btn btn-outline">Login</a></li>
-          <li><a href="signup.html" class="btn btn-primary">Register</a></li>
+        <ul class="nav-links" id="navLinks">
+          <!-- Navigation links will be updated based on login status -->
         </ul>
         <button class="mobile-menu-btn" id="mobileMenuBtn">
           <i class="fas fa-bars"></i>
@@ -638,19 +673,74 @@ nav {
     <button class="close-mobile-nav" id="closeMobileNav">
       <i class="fas fa-times"></i>
     </button>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="how-it-works.html">How It Works</a></li>
-      <li><a href="partners.html">Delivery Partners</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="login.html" class="btn btn-outline" style="margin-top: 1rem;">Login</a></li>
-      <li><a href="signup.html" class="btn btn-primary">Register</a></li>
+    <ul id="mobileNavLinks">
+      <!-- Mobile navigation links will be updated based on login status -->
     </ul>
   </div>
 
-  <!-- Home Page -->
-  <section id="home-page" class="page active">
+  <!-- Welcome/Login Page -->
+  <section id="welcome-page" class="page active">
+    <div class="container">
+      <section class="welcome-section">
+        <h1>Welcome to FoodShare</h1>
+        <p>Join our mission to reduce food waste and feed people in need</p>
+      </section>
+
+      <div class="auth-container">
+        <div class="auth-card">
+          <h2>Join FoodShare</h2>
+          <div class="auth-tabs">
+            <div class="auth-tab active" id="loginTab">Login</div>
+            <div class="auth-tab" id="signupTab">Register</div>
+          </div>
+
+          <!-- Login Form -->
+          <form id="login-form" class="auth-form active">
+            <div class="form-group">
+              <label for="login-email">Email Address</label>
+              <input type="email" id="login-email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+            </div>
+            <div style="text-align: center;">
+              <a href="#" style="color: var(--primary);">Forgot your password?</a>
+            </div>
+          </form>
+
+          <!-- Signup Form -->
+          <form id="signup-form" class="auth-form">
+            <div class="form-group">
+              <label for="signup-name">Full Name</label>
+              <input type="text" id="signup-name" class="form-control" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+              <label for="signup-email">Email Address</label>
+              <input type="email" id="signup-email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+              <label for="signup-password">Password</label>
+              <input type="password" id="signup-password" class="form-control" placeholder="Create a password" required>
+            </div>
+            <div class="form-group">
+              <label for="signup-confirm-password">Confirm Password</label>
+              <input type="password" id="signup-confirm-password" class="form-control" placeholder="Confirm your password" required>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Home Page (shown after login) -->
+  <section id="home-page" class="page">
     <section class="hero" id="home">
       <div class="container">
         <h1>Minimize Food Waste, Share with Those in Need</h1>
@@ -759,6 +849,10 @@ nav {
   </div>
 
   <script>
+    // Check if user is logged in
+    let isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    let currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
     // Initialize statistics
     let stats = {
       mealsDonated: 1250,
@@ -780,6 +874,150 @@ nav {
       document.getElementById('partner-restaurants').textContent = stats.partnerRestaurants.toLocaleString() + '+';
       document.getElementById('ngo-partners').textContent = stats.ngoPartners.toLocaleString() + '+';
       document.getElementById('people-fed').textContent = stats.peopleFed.toLocaleString() + '+';
+    }
+
+    // Function to update navigation based on login status
+    function updateNavigation() {
+      const navLinks = document.getElementById('navLinks');
+      const mobileNavLinks = document.getElementById('mobileNavLinks');
+      
+      if (isLoggedIn) {
+        // User is logged in
+        const userName = currentUser.name || 'User';
+        const userInitial = userName.charAt(0).toUpperCase();
+        
+        navLinks.innerHTML = `
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="partners.html">Delivery Partners</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li>
+            <div class="user-profile">
+              <div class="user-avatar">${userInitial}</div>
+              <span class="user-name">${userName}</span>
+            </div>
+          </li>
+          <li><a href="#" id="logoutBtn" class="btn btn-outline">Logout</a></li>
+        `;
+        
+        mobileNavLinks.innerHTML = `
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="partners.html">Delivery Partners</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><div class="user-profile"><div class="user-avatar">${userInitial}</div><span class="user-name">${userName}</span></div></li>
+          <li><a href="#" id="mobileLogoutBtn" class="btn btn-outline">Logout</a></li>
+        `;
+        
+        // Show home page, hide welcome page
+        document.getElementById('welcome-page').classList.remove('active');
+        document.getElementById('home-page').classList.add('active');
+        
+        // Add logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', logout);
+        document.getElementById('mobileLogoutBtn').addEventListener('click', logout);
+      } else {
+        // User is not logged in
+        navLinks.innerHTML = `
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="partners.html">Delivery Partners</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#" id="loginNavBtn" class="btn btn-outline">Login</a></li>
+          <li><a href="#" id="signupNavBtn" class="btn btn-primary">Register</a></li>
+        `;
+        
+        mobileNavLinks.innerHTML = `
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="partners.html">Delivery Partners</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#" id="mobileLoginBtn" class="btn btn-outline">Login</a></li>
+          <li><a href="#" id="mobileSignupBtn" class="btn btn-primary">Register</a></li>
+        `;
+        
+        // Show welcome page, hide home page
+        document.getElementById('welcome-page').classList.add('active');
+        document.getElementById('home-page').classList.remove('active');
+        
+        // Add navigation to login/signup
+        document.getElementById('loginNavBtn').addEventListener('click', () => switchToTab('login'));
+        document.getElementById('signupNavBtn').addEventListener('click', () => switchToTab('signup'));
+        document.getElementById('mobileLoginBtn').addEventListener('click', () => {
+          switchToTab('login');
+          mobileNav.classList.remove('active');
+        });
+        document.getElementById('mobileSignupBtn').addEventListener('click', () => {
+          switchToTab('signup');
+          mobileNav.classList.remove('active');
+        });
+      }
+    }
+
+    // Function to switch between login and signup tabs
+    function switchToTab(tabName) {
+      const loginTab = document.getElementById('loginTab');
+      const signupTab = document.getElementById('signupTab');
+      const loginForm = document.getElementById('login-form');
+      const signupForm = document.getElementById('signup-form');
+      
+      if (tabName === 'login') {
+        loginTab.classList.add('active');
+        signupTab.classList.remove('active');
+        loginForm.classList.add('active');
+        signupForm.classList.remove('active');
+      } else {
+        loginTab.classList.remove('active');
+        signupTab.classList.add('active');
+        loginForm.classList.remove('active');
+        signupForm.classList.add('active');
+      }
+    }
+
+    // Function to handle login
+    function login(email, password) {
+      // In a real app, you would validate with a server
+      // For demo purposes, we'll simulate a successful login
+      currentUser = {
+        name: email.split('@')[0],
+        email: email
+      };
+      
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      isLoggedIn = true;
+      
+      updateNavigation();
+    }
+
+    // Function to handle signup
+    function signup(name, email, password) {
+      // In a real app, you would send this data to a server
+      // For demo purposes, we'll simulate a successful signup
+      currentUser = {
+        name: name,
+        email: email
+      };
+      
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      isLoggedIn = true;
+      
+      updateNavigation();
+    }
+
+    // Function to handle logout
+    function logout() {
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('currentUser');
+      isLoggedIn = false;
+      currentUser = {};
+      
+      updateNavigation();
     }
 
     // Modal functionality
@@ -814,8 +1052,36 @@ nav {
       mobileNav.classList.remove('active');
     });
 
-    // Initialize stats on page load
+    // Tab switching
+    document.getElementById('loginTab').addEventListener('click', () => switchToTab('login'));
+    document.getElementById('signupTab').addEventListener('click', () => switchToTab('signup'));
+
+    // Form submissions
+    document.getElementById('login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      login(email, password);
+    });
+
+    document.getElementById('signup-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('signup-name').value;
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      const confirmPassword = document.getElementById('signup-confirm-password').value;
+      
+      if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+      }
+      
+      signup(name, email, password);
+    });
+
+    // Initialize on page load
     document.addEventListener('DOMContentLoaded', () => {
+      updateNavigation();
       updateStats();
       
       // Update stats every 30 seconds to simulate new submissions
