@@ -40,7 +40,7 @@
 
         .auth-container {
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             background: var(--white);
             border-radius: 16px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
@@ -73,7 +73,7 @@
             padding: 2.5rem;
         }
 
-        /* Enhanced Error Message Styles - Hidden by default */
+        /* Enhanced Error Message Styles */
         .form-message {
             padding: 1rem;
             border-radius: 8px;
@@ -125,6 +125,37 @@
             75% { transform: translateX(5px); }
         }
 
+        /* Multi-step form styles */
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--gray-light);
+            border-radius: 3px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .step-indicator {
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
         .form-group {
             margin-bottom: 1.5rem;
         }
@@ -151,7 +182,6 @@
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
         }
 
-        /* Only show error state after validation */
         .form-control.error {
             border-color: var(--error);
             background-color: rgba(244, 67, 54, 0.05);
@@ -173,15 +203,18 @@
         }
 
         .btn {
-            display: block;
-            width: 100%;
-            padding: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
             border: none;
             border-radius: 8px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-decoration: none;
         }
 
         .btn-primary {
@@ -204,71 +237,10 @@
             color: var(--primary);
         }
 
-        .divider {
+        .form-navigation {
             display: flex;
-            align-items: center;
-            margin: 1.5rem 0;
-            color: var(--gray);
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--gray-light);
-        }
-
-        .divider span {
-            padding: 0 1rem;
-        }
-
-        .social-login {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .social-btn {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem;
-            border: 2px solid var(--gray-light);
-            border-radius: 8px;
-            background: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .social-btn:hover {
-            border-color: var(--primary);
-        }
-
-        .social-btn.google i {
-            color: #DB4437;
-        }
-
-        .social-btn.facebook i {
-            color: #4267B2;
-        }
-
-        .auth-footer {
-            text-align: center;
-            margin-top: 1.5rem;
-            color: var(--gray);
-        }
-
-        .auth-footer a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .auth-footer a:hover {
-            text-decoration: underline;
+            justify-content: space-between;
+            margin-top: 2rem;
         }
 
         .user-type-selector {
@@ -303,22 +275,37 @@
             color: var(--primary);
         }
 
-        .password-strength {
-            margin-top: 0.5rem;
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
         }
 
-        .strength-bar {
-            height: 4px;
-            background: var(--gray-light);
-            border-radius: 2px;
+        .checkbox-group input {
             margin-top: 0.25rem;
-            overflow: hidden;
         }
 
-        .strength-fill {
-            height: 100%;
-            width: 0%;
-            transition: all 0.3s ease;
+        .checkbox-group label {
+            font-weight: normal;
+        }
+
+        .checkbox-group a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .checkbox-group a:hover {
+            text-decoration: underline;
+        }
+
+        .other-input {
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .other-input.active {
+            display: block;
         }
 
         @media (max-width: 480px) {
@@ -332,10 +319,6 @@
             
             .auth-header h1 {
                 font-size: 1.5rem;
-            }
-            
-            .social-login {
-                flex-direction: column;
             }
             
             .user-type-selector {
@@ -363,84 +346,253 @@
 
             <!-- Signup Form -->
             <form id="signup-form">
-                <div class="form-group">
-                    <label for="signup-name" class="form-label">Full Name</label>
-                    <input type="text" id="signup-name" class="form-control" placeholder="Enter your full name">
-                </div>
-
-                <div class="form-group">
-                    <label for="signup-email" class="form-label">Email Address</label>
-                    <input type="email" id="signup-email" class="form-control" placeholder="Enter your email">
-                </div>
-
-                <div class="form-group">
-                    <label for="signup-password" class="form-label">Password</label>
-                    <div class="password-input-container">
-                        <input type="password" id="signup-password" class="form-control" placeholder="Create a password">
-                        <button type="button" class="password-toggle" id="signup-password-toggle">
-                            <i class="fas fa-eye"></i>
-                        </button>
+                <!-- Step 1: Account Type -->
+                <div class="form-step active" id="step1">
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 25%;"></div>
                     </div>
-                    <div class="password-strength">
-                        <div>Password strength: <span id="strength-text">Weak</span></div>
-                        <div class="strength-bar">
-                            <div class="strength-fill" id="strength-fill"></div>
+                    <div class="step-indicator">Step 1 of 4: Account Type</div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">I am a:</label>
+                        <div class="user-type-selector">
+                            <div class="user-type active" data-type="donor">
+                                <i class="fas fa-utensils"></i>
+                                <span>Food Donor</span>
+                            </div>
+                            <div class="user-type" data-type="recipient">
+                                <i class="fas fa-hands-helping"></i>
+                                <span>Food Recipient</span>
+                            </div>
+                        </div>
+                        <input type="hidden" id="user-type" required>
+                    </div>
+
+                    <div class="form-navigation">
+                        <div></div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="color: var(--dark);">
+                                Already registered? 
+                                <a href="login.html" style="color: var(--primary); text-decoration: none; font-weight: 600; margin-left: 0.25rem;">
+                                    Login here
+                                </a>
+                            </span>
+                            <button type="button" class="btn btn-primary" id="step1-next">Next</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="signup-confirm-password" class="form-label">Confirm Password</label>
-                    <div class="password-input-container">
-                        <input type="password" id="signup-confirm-password" class="form-control" placeholder="Confirm your password">
-                        <button type="button" class="password-toggle" id="signup-confirm-password-toggle">
-                            <i class="fas fa-eye"></i>
-                        </button>
+                <!-- Step 2: Basic Information -->
+                <div class="form-step" id="step2">
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 50%;"></div>
+                    </div>
+                    <div class="step-indicator">Step 2 of 4: Basic Information</div>
+
+                    <div class="form-group">
+                        <label for="signup-name" class="form-label">Full Name</label>
+                        <input type="text" id="signup-name" class="form-control" placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-email" class="form-label">Email Address</label>
+                        <input type="email" id="signup-email" class="form-control" placeholder="Enter your email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-phone" class="form-label">Phone Number</label>
+                        <input type="tel" id="signup-phone" class="form-control" placeholder="Enter your phone number">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-address" class="form-label">Address</label>
+                        <textarea id="signup-address" class="form-control" placeholder="Enter your full address" rows="3"></textarea>
+                    </div>
+
+                    <div id="recipient-org-name" style="display: none;">
+                        <div class="form-group">
+                            <label for="organization-name" class="form-label">Organization Name (Optional)</label>
+                            <input type="text" id="organization-name" class="form-control" placeholder="Enter organization name">
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-outline" id="step2-back">Back</button>
+                        <button type="button" class="btn btn-primary" id="step2-next">Next</button>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">I am a:</label>
-                    <div class="user-type-selector">
-                        <div class="user-type active" data-type="donor">
-                            <i class="fas fa-utensils"></i>
-                            <span>Food Donor</span>
+                <!-- Step 3: Role-specific Information -->
+                <div class="form-step" id="step3">
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 75%;"></div>
+                    </div>
+                    <div class="step-indicator">Step 3 of 4: Additional Details</div>
+
+                    <!-- Donor Questions -->
+                    <div id="donor-questions">
+                        <div class="form-group">
+                            <label for="business-type" class="form-label">Type of Food Business</label>
+                            <select id="business-type" class="form-control">
+                                <option value="">Select your business type</option>
+                                <option value="restaurant">Restaurant</option>
+                                <option value="cafe">Cafe</option>
+                                <option value="bakery">Bakery</option>
+                                <option value="catering">Catering Service</option>
+                                <option value="grocery">Grocery Store</option>
+                                <option value="individual">Individual</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <div class="other-input" id="business-other-input">
+                                <input type="text" class="form-control" placeholder="Please specify" style="margin-top: 0.5rem;">
+                            </div>
                         </div>
-                        <div class="user-type" data-type="recipient">
-                            <i class="fas fa-hands-helping"></i>
-                            <span>Food Recipient</span>
+
+                        <div class="form-group">
+                            <label class="form-label">What types of food do you typically have available?</label>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="food-prepared" name="food-types" value="prepared">
+                                <label for="food-prepared">Prepared Meals</label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="food-produce" name="food-types" value="produce">
+                                <label for="food-produce">Grocery</label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="food-bakery" name="food-types" value="bakery">
+                                <label for="food-bakery">Bakery Items</label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="food-dairy" name="food-types" value="dairy">
+                                <label for="food-dairy">Dairy Products</label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="food-packaged" name="food-types" value="packaged">
+                                <label for="food-packaged">Packaged Foods</label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="food-beverages" name="food-types" value="beverages">
+                                <label for="food-beverages">Beverages</label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="food-frozen" name="food-types" value="frozen">
+                                <label for="food-frozen">Frozen Foods</label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="food-other" name="food-types" value="other">
+                                <label for="food-other">Other</label>
+                            </div>
+                            
+                            <div class="other-input" id="food-other-input">
+                                <input type="text" class="form-control" placeholder="Please specify other food types" style="margin-top: 0.5rem;">
+                            </div>
                         </div>
-                        <div class="user-type" data-type="volunteer">
-                            <i class="fas fa-user"></i>
-                            <span>Volunteer</span>
+
+                        <div class="form-group">
+                            <label for="donation-frequency" class="form-label">How often can you donate?</label>
+                            <select id="donation-frequency" class="form-control">
+                                <option value="">Select frequency</option>
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="occasional">Occasionally</option>
+                            </select>
                         </div>
+                    </div>
+
+                    <!-- Recipient Questions -->
+                    <div id="recipient-questions" style="display: none;">
+                        <div class="form-group">
+                            <label for="organization-type" class="form-label">Type of Organization</label>
+                            <select id="organization-type" class="form-control">
+                                <option value="">Select your organization type</option>
+                                <option value="ngo">NGO/Non-Profit</option>
+                                <option value="shelter">Shelter</option>
+                                <option value="community">Community Center</option>
+                                <option value="religious">Religious Organization</option>
+                                <option value="school">School/Educational</option>
+                                <option value="orphanage">Orphanage</option>
+                                <option value="oldage">Old Age Home</option>
+                                <option value="disaster">Disaster Relief Organization</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <div class="other-input" id="org-other-input">
+                                <input type="text" class="form-control" placeholder="Please specify" style="margin-top: 0.5rem;">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="people-served" class="form-label">Approximately how many people do you serve?</label>
+                            <input type="number" id="people-served" class="form-control" placeholder="Enter number of people" min="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="storage-capacity" class="form-label">What is your storage capacity?</label>
+                            <select id="storage-capacity" class="form-control">
+                                <option value="">Select storage capacity</option>
+                                <option value="small">Small (Refrigerator only)</option>
+                                <option value="medium">Medium (Refrigerator + limited freezer)</option>
+                                <option value="large">Large (Commercial refrigeration/freezer)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-outline" id="step3-back">Back</button>
+                        <button type="button" class="btn btn-primary" id="step3-next">Next</button>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <input type="checkbox" id="agree-terms">
-                    <label for="agree-terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
-                </div>
+                <!-- Step 4: Account Setup -->
+                <div class="form-step" id="step4">
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 100%;"></div>
+                    </div>
+                    <div class="step-indicator">Step 4 of 4: Account Setup</div>
 
-                <button type="submit" class="btn btn-primary">Create Account</button>
+                    <div class="form-group">
+                        <label for="signup-password" class="form-label">Create Password</label>
+                        <div class="password-input-container">
+                            <input type="password" id="signup-password" class="form-control" placeholder="Create a password">
+                            <button type="button" class="password-toggle" id="signup-password-toggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
 
-                <div class="divider">
-                    <span>Or sign up with</span>
-                </div>
+                    <div class="form-group">
+                        <label for="signup-confirm-password" class="form-label">Confirm Password</label>
+                        <div class="password-input-container">
+                            <input type="password" id="signup-confirm-password" class="form-control" placeholder="Confirm your password">
+                            <button type="button" class="password-toggle" id="signup-confirm-password-toggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
 
-                <div class="social-login">
-                    <button type="button" class="social-btn google">
-                        <i class="fab fa-google"></i>
-                        <span>Google</span>
-                    </button>
-                    <button type="button" class="social-btn facebook">
-                        <i class="fab fa-facebook-f"></i>
-                        <span>Facebook</span>
-                    </button>
-                </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms-agreement" required>
+                        <label for="terms-agreement">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                    </div>
 
-                <div class="auth-footer">
-                    Already have an account? <a href="login.html">Login here</a>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="food-safety" required>
+                        <label for="food-safety">I agree to follow food safety guidelines when handling donations</label>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-outline" id="step4-back">Back</button>
+                        <button type="submit" class="btn btn-primary">Create Account</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -451,15 +603,160 @@
         const signupForm = document.getElementById('signup-form');
         const errorMessage = document.getElementById('error-message');
         const successMessage = document.getElementById('success-message');
-        const nameInput = document.getElementById('signup-name');
-        const emailInput = document.getElementById('signup-email');
-        const passwordInput = document.getElementById('signup-password');
-        const confirmPasswordInput = document.getElementById('signup-confirm-password');
-        const termsCheckbox = document.getElementById('agree-terms');
-        
-        // Track if form has been submitted
-        let formSubmitted = false;
-        
+
+        // Multi-step form navigation
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function goToStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.form-step').forEach(s => {
+                s.classList.remove('active');
+            });
+            
+            // Show the current step
+            document.getElementById(`step${step}`).classList.add('active');
+            currentStep = step;
+            
+            // Update progress bar
+            const progressPercentage = (step / totalSteps) * 100;
+            document.querySelectorAll('.progress').forEach(progress => {
+                progress.style.width = `${progressPercentage}%`;
+            });
+        }
+
+        // Initialize form steps
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default user type
+            document.getElementById('user-type').value = 'donor';
+            
+            // Initialize the form on step 1
+            goToStep(1);
+        });
+
+        // Step 1: Account Type
+        const userTypes = document.querySelectorAll('.user-type');
+        const userTypeInput = document.getElementById('user-type');
+
+        userTypes.forEach(type => {
+            type.addEventListener('click', function() {
+                userTypes.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                userTypeInput.value = this.dataset.type;
+                
+                // Show/hide recipient organization name field
+                if (this.dataset.type === 'recipient') {
+                    document.getElementById('recipient-org-name').style.display = 'block';
+                } else {
+                    document.getElementById('recipient-org-name').style.display = 'none';
+                }
+                
+                // Show appropriate questions in step 3
+                if (this.dataset.type === 'donor') {
+                    document.getElementById('donor-questions').style.display = 'block';
+                    document.getElementById('recipient-questions').style.display = 'none';
+                } else {
+                    document.getElementById('donor-questions').style.display = 'none';
+                    document.getElementById('recipient-questions').style.display = 'block';
+                }
+            });
+        });
+
+        document.getElementById('step1-next').addEventListener('click', function() {
+            if (!userTypeInput.value) {
+                showMessage('Please select an account type', 'error');
+                return;
+            }
+            goToStep(2);
+        });
+
+        // Step 2: Basic Information
+        document.getElementById('step2-back').addEventListener('click', () => goToStep(1));
+        document.getElementById('step2-next').addEventListener('click', function() {
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const phone = document.getElementById('signup-phone').value;
+            const address = document.getElementById('signup-address').value;
+            
+            if (!name || !email || !phone || !address) {
+                showMessage('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                showMessage('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            goToStep(3);
+        });
+
+        // Food type other input toggle
+        document.getElementById('food-other').addEventListener('change', function() {
+            document.getElementById('food-other-input').classList.toggle('active', this.checked);
+        });
+
+        // Step 3: Role-specific Information
+        document.getElementById('step3-back').addEventListener('click', () => goToStep(2));
+        document.getElementById('step3-next').addEventListener('click', function() {
+            const userType = userTypeInput.value;
+            
+            if (userType === 'donor') {
+                const businessType = document.getElementById('business-type').value;
+                const donationFrequency = document.getElementById('donation-frequency').value;
+                
+                // Check if at least one food type is selected
+                const foodCheckboxes = document.querySelectorAll('input[name="food-types"]:checked');
+                const selectedFoodTypes = Array.from(foodCheckboxes).map(cb => cb.value);
+                
+                if (!businessType || selectedFoodTypes.length === 0 || !donationFrequency) {
+                    showMessage('Please fill in all required fields', 'error');
+                    return;
+                }
+                
+                // Validate "other" food type
+                if (selectedFoodTypes.includes('other')) {
+                    const otherInput = document.querySelector('#food-other-input input').value;
+                    if (!otherInput.trim()) {
+                        showMessage('Please specify the other food type', 'error');
+                        return;
+                    }
+                }
+            } else {
+                const organizationType = document.getElementById('organization-type').value;
+                const peopleServed = document.getElementById('people-served').value;
+                const storageCapacity = document.getElementById('storage-capacity').value;
+                
+                if (!organizationType || !peopleServed || !storageCapacity) {
+                    showMessage('Please fill in all required fields', 'error');
+                    return;
+                }
+                
+                // Validate "other" organization type
+                if (organizationType === 'other') {
+                    const otherInput = document.querySelector('#org-other-input input').value;
+                    if (!otherInput.trim()) {
+                        showMessage('Please specify the other organization type', 'error');
+                        return;
+                    }
+                }
+            }
+            
+            goToStep(4);
+        });
+
+        // Step 4: Back button
+        document.getElementById('step4-back').addEventListener('click', () => goToStep(3));
+
+        // Other input fields
+        document.getElementById('business-type').addEventListener('change', function() {
+            document.getElementById('business-other-input').classList.toggle('active', this.value === 'other');
+        });
+
+        document.getElementById('organization-type').addEventListener('change', function() {
+            document.getElementById('org-other-input').classList.toggle('active', this.value === 'other');
+        });
+
         // Password toggle functionality
         const passwordToggles = document.querySelectorAll('.password-toggle');
         passwordToggles.forEach(toggle => {
@@ -477,51 +774,6 @@
                     icon.classList.add('fa-eye');
                 }
             });
-        });
-
-        // User type selection
-        const userTypes = document.querySelectorAll('.user-type');
-        userTypes.forEach(type => {
-            type.addEventListener('click', () => {
-                userTypes.forEach(t => t.classList.remove('active'));
-                type.classList.add('active');
-            });
-        });
-
-        // Password strength indicator
-        const strengthText = document.getElementById('strength-text');
-        const strengthFill = document.getElementById('strength-fill');
-        
-        passwordInput.addEventListener('input', function() {
-            const password = this.value;
-            let strength = 0;
-            
-            // Check password length
-            if (password.length >= 8) strength += 25;
-            
-            // Check for lowercase letters
-            if (/[a-z]/.test(password)) strength += 25;
-            
-            // Check for uppercase letters
-            if (/[A-Z]/.test(password)) strength += 25;
-            
-            // Check for numbers and special characters
-            if (/[0-9]/.test(password)) strength += 15;
-            if (/[^A-Za-z0-9]/.test(password)) strength += 10;
-            
-            // Update strength indicator
-            strengthFill.style.width = `${strength}%`;
-            
-            if (strength < 50) {
-                strengthText.textContent = 'Weak';
-                strengthFill.style.background = '#ff4757';
-            } else if (strength < 75) {
-                strengthText.textContent = 'Medium';
-                strengthFill.style.background = '#ffa502';
-            } else {
-                strengthText.textContent = 'Strong';
-                strengthFill.style.background = '#2ed573';
-            }
         });
 
         // Form validation and submission
@@ -549,14 +801,6 @@
         function clearMessages() {
             errorMessage.style.display = 'none';
             successMessage.style.display = 'none';
-            
-            // Only clear error states if form hasn't been submitted yet
-            if (!formSubmitted) {
-                nameInput.classList.remove('error');
-                emailInput.classList.remove('error');
-                passwordInput.classList.remove('error');
-                confirmPasswordInput.classList.remove('error');
-            }
         }
 
         function validateEmail(email) {
@@ -567,90 +811,101 @@
         // Signup form submission
         signupForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            formSubmitted = true;
             
-            const name = nameInput.value;
-            const email = emailInput.value;
-            const password = passwordInput.value;
-            const confirmPassword = confirmPasswordInput.value;
-            const userType = document.querySelector('.user-type.active').getAttribute('data-type');
-            const agreeTerms = termsCheckbox.checked;
+            // Make sure we're on the final step
+            if (currentStep !== 4) {
+                showMessage('Please complete all steps of the registration', 'error');
+                return;
+            }
             
-            // Clear previous errors
-            nameInput.classList.remove('error');
-            emailInput.classList.remove('error');
-            passwordInput.classList.remove('error');
-            confirmPasswordInput.classList.remove('error');
+            const userType = userTypeInput.value;
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const phone = document.getElementById('signup-phone').value;
+            const address = document.getElementById('signup-address').value;
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+            const termsAgreement = document.getElementById('terms-agreement').checked;
+            const foodSafety = document.getElementById('food-safety').checked;
             
             // Validation
-            let hasError = false;
-            let errorMessages = [];
-            
-            if (!name) {
-                nameInput.classList.add('error');
-                hasError = true;
-                errorMessages.push('Full Name is required');
-            }
-            
-            if (!email) {
-                emailInput.classList.add('error');
-                hasError = true;
-                errorMessages.push('Email is required');
-            } else if (!validateEmail(email)) {
-                emailInput.classList.add('error');
-                hasError = true;
-                errorMessages.push('Please enter a valid email address');
-            }
-            
-            if (!password) {
-                passwordInput.classList.add('error');
-                hasError = true;
-                errorMessages.push('Password is required');
-            } else if (password.length < 8) {
-                passwordInput.classList.add('error');
-                hasError = true;
-                errorMessages.push('Password must be at least 8 characters long');
-            }
-            
-            if (!confirmPassword) {
-                confirmPasswordInput.classList.add('error');
-                hasError = true;
-                errorMessages.push('Please confirm your password');
-            } else if (password !== confirmPassword) {
-                confirmPasswordInput.classList.add('error');
-                hasError = true;
-                errorMessages.push('Passwords do not match');
-            }
-            
-            if (!agreeTerms) {
-                hasError = true;
-                errorMessages.push('You must agree to the Terms and Conditions');
-            }
-            
-            if (hasError) {
-                // Show all error messages
-                const errorText = errorMessages.join('<br>');
-                showMessage(errorText, 'error');
+            if (!userType || !name || !email || !phone || !address || !password || !confirmPassword) {
+                showMessage('Please fill in all required fields', 'error');
                 return;
+            }
+            
+            if (!termsAgreement || !foodSafety) {
+                showMessage('You must agree to all terms and conditions', 'error');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                showMessage('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showMessage('Passwords do not match', 'error');
+                return;
+            }
+            
+            if (password.length < 8) {
+                showMessage('Password must be at least 8 characters long', 'error');
+                return;
+            }
+            
+            // Collect user data
+            const userData = {
+                name: name,
+                email: email,
+                phone: phone,
+                address: address,
+                userType: userType
+            };
+            
+            // Add role-specific data
+            if (userType === 'donor') {
+                userData.businessType = document.getElementById('business-type').value;
+                if (userData.businessType === 'other') {
+                    userData.businessTypeOther = document.querySelector('#business-other-input input').value;
+                }
+                
+                // Get selected food types from checkboxes
+                const foodCheckboxes = document.querySelectorAll('input[name="food-types"]:checked');
+                userData.foodTypes = Array.from(foodCheckboxes).map(cb => {
+                    if (cb.value === 'other') {
+                        return document.querySelector('#food-other-input input').value;
+                    }
+                    return cb.parentElement.querySelector('label').textContent;
+                });
+                
+                userData.donationFrequency = document.getElementById('donation-frequency').value;
+            } else {
+                userData.organizationName = document.getElementById('organization-name').value;
+                userData.organizationType = document.getElementById('organization-type').value;
+                if (userData.organizationType === 'other') {
+                    userData.organizationTypeOther = document.querySelector('#org-other-input input').value;
+                }
+                userData.peopleServed = document.getElementById('people-served').value;
+                userData.storageCapacity = document.getElementById('storage-capacity').value;
             }
             
             // Simulate registration process
             showMessage('Account created successfully! Welcome to FoodShare.', 'success');
             
-            // In a real application, you would make an API call here
+            // Store user data and log them in
             setTimeout(() => {
-                // Redirect to appropriate page based on user type
-                window.location.href = 'index.html';
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('currentUser', JSON.stringify(userData));
+                localStorage.setItem('userRole', userType);
+                
+                // Redirect based on user type
+                if (userType === 'donor') {
+                    window.location.href = 'delivery.html';
+                } else {
+                    window.location.href = 'receiver.html';
+                }
             }, 1500);
-        });
-
-        // Social login buttons
-        const socialButtons = document.querySelectorAll('.social-btn');
-        socialButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const platform = this.classList.contains('google') ? 'Google' : 'Facebook';
-                showMessage(`${platform} login would be implemented here`, 'success');
-            });
         });
     </script>
 </body>
