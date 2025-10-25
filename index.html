@@ -244,240 +244,6 @@
       cursor: pointer;
     }
     
-    /* Auth Pages Styles */
-    .auth-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 80vh;
-      padding: 2rem 0;
-    }
-    .auth-card {
-      width: 100%;
-      max-width: 500px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 2.5rem;
-    }
-    .auth-card h2 {
-      text-align: center;
-      margin-bottom: 2rem;
-      color: var(--primary);
-    }
-    .auth-tabs {
-      display: flex;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid #eee;
-    }
-    .auth-tab {
-      flex: 1;
-      text-align: center;
-      padding: 1rem;
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      transition: all 0.3s ease;
-    }
-    .auth-tab.active {
-      border-bottom: 3px solid var(--primary);
-      color: var(--primary);
-      font-weight: 600;
-    }
-    .auth-form {
-      display: none;
-    }
-    .auth-form.active {
-      display: block;
-    }
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
-    .form-control {
-      width: 100%;
-      padding: 0.75rem;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      font-size: 1rem;
-      transition: border 0.3s ease;
-    }
-    .form-control:focus {
-      border-color: var(--primary);
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-    }
-    .form-control.error {
-      border-color: var(--error);
-      background-color: rgba(244, 67, 54, 0.05);
-    }
-    .form-message {
-      padding: 0.75rem;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-      text-align: center;
-      display: none;
-    }
-    .form-message.error {
-      background: rgba(244, 67, 54, 0.1);
-      color: var(--error);
-      border-left: 4px solid var(--error);
-    }
-    .form-message.success {
-      background: rgba(76, 175, 80, 0.1);
-      color: var(--success);
-      border-left: 4px solid var(--success);
-    }
-    .user-type-selector {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
-    .user-type {
-      flex: 1;
-      min-width: 120px;
-      text-align: center;
-      padding: 1rem 0.5rem;
-      border: 2px solid #eee;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .user-type:hover {
-      border-color: var(--primary);
-    }
-    .user-type.active {
-      border-color: var(--primary);
-      background: rgba(76, 175, 80, 0.1);
-    }
-    .user-type i {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      display: block;
-      color: var(--primary);
-    }
-    .user-type span {
-      font-weight: 600;
-      display: block;
-    }
-    .user-type small {
-      color: var(--gray);
-      font-size: 0.8rem;
-    }
-    .form-options {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-    .remember-me {
-      display: flex;
-      align-items: center;
-    }
-    .remember-me input {
-      margin-right: 8px;
-    }
-    .forgot-password {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .forgot-password:hover {
-      text-decoration: underline;
-    }
-    .password-input-container {
-      position: relative;
-    }
-    .password-toggle {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: var(--gray);
-      cursor: pointer;
-    }
-    .form-navigation {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 2rem;
-    }
-    .form-step {
-      display: none;
-    }
-    .form-step.active {
-      display: block;
-    }
-    .progress-bar {
-      height: 6px;
-      background: #eee;
-      border-radius: 3px;
-      margin-bottom: 2rem;
-      overflow: hidden;
-    }
-    .progress {
-      height: 100%;
-      background: var(--primary);
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-    .step-indicator {
-      text-align: center;
-      color: var(--gray);
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
-    .checkbox-group {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 1rem;
-    }
-    .checkbox-group input {
-      margin-right: 10px;
-      margin-top: 3px;
-    }
-    .checkbox-group label {
-      font-weight: normal;
-    }
-    .checkbox-group a {
-      color: var(--primary);
-      text-decoration: none;
-    }
-    .checkbox-group a:hover {
-      text-decoration: underline;
-    }
-    
-    /* Page Styles */
-    .page {
-      display: none;
-    }
-    .page.active {
-      display: block;
-    }
-    
-    @media (max-width: 768px) {
-      .nav-links, .auth-buttons {
-        display: none;
-      }
-      .mobile-menu-btn {
-        display: block;
-      }
-      .hero h1 {
-        font-size: 2.2rem;
-      }
-      .hero p {
-        font-size: 1.1rem;
-      }
-      .user-type-selector {
-        flex-direction: column;
-      }
-    }
-    
     /* Modal Styles */
     .modal {
       display: none;
@@ -576,25 +342,6 @@
       cursor: pointer;
     }
     
-    /* Login/Register Section */
-    .welcome-section {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-      color: white;
-      padding: 4rem 2rem;
-      text-align: center;
-      border-radius: 8px;
-      margin: 2rem 0;
-    }
-    .welcome-section h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-    .welcome-section p {
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 0 auto 2rem;
-    }
-    
     /* User Profile in Nav */
     .user-profile {
       display: flex;
@@ -615,6 +362,21 @@
     }
     .user-name {
       font-weight: 600;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links, .auth-buttons {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      .hero p {
+        font-size: 1.1rem;
+      }
     }
   </style>
 </head>
@@ -646,232 +408,8 @@
     </ul>
   </div>
 
-  <!-- Welcome/Login Page -->
-  <section id="welcome-page" class="page active">
-    <div class="container">
-      <section class="welcome-section">
-        <h1>Welcome to FoodShare</h1>
-        <p>Join our mission to reduce food waste and feed people in need</p>
-      </section>
-
-      <div class="auth-container">
-        <div class="auth-card">
-          <h2>Join FoodShare</h2>
-          <div class="auth-tabs">
-            <div class="auth-tab active" id="loginTab">Login</div>
-            <div class="auth-tab" id="signupTab">Register</div>
-          </div>
-
-          <!-- Login Form -->
-          <form id="login-form" class="auth-form active">
-            <div class="form-message error" id="login-error-message"></div>
-            <div class="form-group">
-              <label for="login-email">Email Address</label>
-              <input type="email" id="login-email" class="form-control" placeholder="Enter your email" required>
-            </div>
-            <div class="form-group">
-              <label for="login-password">Password</label>
-              <div class="password-input-container">
-                <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
-                <button type="button" class="password-toggle" id="login-password-toggle">
-                  <i class="fas fa-eye"></i>
-                </button>
-              </div>
-            </div>
-            <div class="form-options">
-              <div class="remember-me">
-                <input type="checkbox" id="remember-me">
-                <label for="remember-me">Remember me</label>
-              </div>
-              <a href="#" class="forgot-password">Forgot your password?</a>
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
-            </div>
-          </form>
-
-          <!-- Signup Form -->
-          <form id="signup-form" class="auth-form">
-            <div class="form-message error" id="signup-error-message"></div>
-            
-            <!-- Step 1: Account Type -->
-            <div class="form-step active" id="step1">
-              <div class="progress-bar">
-                <div class="progress" id="signup-progress" style="width: 25%;"></div>
-              </div>
-              <div class="step-indicator">Step 1 of 4: Account Type</div>
-              
-              <div class="form-group">
-                <label>I want to:</label>
-                <div class="user-type-selector">
-                  <div class="user-type" data-type="donor">
-                    <i class="fas fa-utensils"></i>
-                    <span>Donate Food</span>
-                    <small>Restaurants, Cafes, Individuals</small>
-                  </div>
-                  <div class="user-type" data-type="recipient">
-                    <i class="fas fa-hands-helping"></i>
-                    <span>Receive Food</span>
-                    <small>NGOs, Shelters, Communities</small>
-                  </div>
-                </div>
-                <input type="hidden" id="user-type" required>
-              </div>
-              
-              <div class="form-navigation">
-                <div></div> <!-- Empty div for spacing -->
-                <button type="button" class="btn btn-primary" id="step1-next">Next</button>
-              </div>
-            </div>
-            
-            <!-- Step 2: Basic Information -->
-            <div class="form-step" id="step2">
-              <div class="progress-bar">
-                <div class="progress" id="signup-progress" style="width: 50%;"></div>
-              </div>
-              <div class="step-indicator">Step 2 of 4: Basic Information</div>
-              
-              <div class="form-group">
-                <label for="signup-name">Full Name</label>
-                <input type="text" id="signup-name" class="form-control" placeholder="Enter your full name" required>
-              </div>
-              <div class="form-group">
-                <label for="signup-email">Email Address</label>
-                <input type="email" id="signup-email" class="form-control" placeholder="Enter your email" required>
-              </div>
-              <div class="form-group">
-                <label for="signup-phone">Phone Number</label>
-                <input type="tel" id="signup-phone" class="form-control" placeholder="Enter your phone number" required>
-              </div>
-              
-              <div class="form-navigation">
-                <button type="button" class="btn btn-outline" id="step2-back">Back</button>
-                <button type="button" class="btn btn-primary" id="step2-next">Next</button>
-              </div>
-            </div>
-            
-            <!-- Step 3: Food-Specific Questions -->
-            <div class="form-step" id="step3">
-              <div class="progress-bar">
-                <div class="progress" id="signup-progress" style="width: 75%;"></div>
-              </div>
-              <div class="step-indicator">Step 3 of 4: Food Details</div>
-              
-              <div id="donor-questions">
-                <div class="form-group">
-                  <label for="business-type">Type of Food Business</label>
-                  <select id="business-type" class="form-control" required>
-                    <option value="">Select your business type</option>
-                    <option value="restaurant">Restaurant</option>
-                    <option value="cafe">Cafe</option>
-                    <option value="bakery">Bakery</option>
-                    <option value="catering">Catering Service</option>
-                    <option value="grocery">Grocery Store</option>
-                    <option value="individual">Individual</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="food-types">What types of food do you typically have available?</label>
-                  <select id="food-types" class="form-control" multiple required>
-                    <option value="prepared">Prepared Meals</option>
-                    <option value="produce">Fresh Produce</option>
-                    <option value="bakery">Bakery Items</option>
-                    <option value="dairy">Dairy Products</option>
-                    <option value="protein">Protein (Meat/Fish)</option>
-                    <option value="packaged">Packaged Foods</option>
-                  </select>
-                  <small style="color: var(--gray);">Hold Ctrl/Cmd to select multiple options</small>
-                </div>
-                <div class="form-group">
-                  <label for="donation-frequency">How often can you donate?</label>
-                  <select id="donation-frequency" class="form-control" required>
-                    <option value="">Select frequency</option>
-                    <option value="daily">Daily</option>
-                    <option value="weekly">Weekly</option>
-                    <option value="biweekly">Bi-Weekly</option>
-                    <option value="monthly">Monthly</option>
-                    <option value="occasional">Occasionally</option>
-                  </select>
-                </div>
-              </div>
-              
-              <div id="recipient-questions" style="display: none;">
-                <div class="form-group">
-                  <label for="organization-type">Type of Organization</label>
-                  <select id="organization-type" class="form-control" required>
-                    <option value="">Select your organization type</option>
-                    <option value="ngo">NGO/Non-Profit</option>
-                    <option value="shelter">Shelter</option>
-                    <option value="community">Community Center</option>
-                    <option value="religious">Religious Organization</option>
-                    <option value="school">School/Educational</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="people-served">Approximately how many people do you serve?</label>
-                  <input type="number" id="people-served" class="form-control" placeholder="Enter number of people" min="1" required>
-                </div>
-                <div class="form-group">
-                  <label for="storage-capacity">What is your storage capacity?</label>
-                  <select id="storage-capacity" class="form-control" required>
-                    <option value="">Select storage capacity</option>
-                    <option value="small">Small (Refrigerator only)</option>
-                    <option value="medium">Medium (Refrigerator + limited freezer)</option>
-                    <option value="large">Large (Commercial refrigeration/freezer)</option>
-                  </select>
-                </div>
-              </div>
-              
-              <div class="form-navigation">
-                <button type="button" class="btn btn-outline" id="step3-back">Back</button>
-                <button type="button" class="btn btn-primary" id="step3-next">Next</button>
-              </div>
-            </div>
-            
-            <!-- Step 4: Account Setup -->
-            <div class="form-step" id="step4">
-              <div class="progress-bar">
-                <div class="progress" id="signup-progress" style="width: 100%;"></div>
-              </div>
-              <div class="step-indicator">Step 4 of 4: Account Setup</div>
-              
-              <div class="form-group">
-                <label for="signup-password">Create Password</label>
-                <div class="password-input-container">
-                  <input type="password" id="signup-password" class="form-control" placeholder="Create a password" required>
-                  <button type="button" class="password-toggle" id="signup-password-toggle">
-                    <i class="fas fa-eye"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="signup-confirm-password">Confirm Password</label>
-                <input type="password" id="signup-confirm-password" class="form-control" placeholder="Confirm your password" required>
-              </div>
-              <div class="checkbox-group">
-                <input type="checkbox" id="terms-agreement" required>
-                <label for="terms-agreement">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
-              </div>
-              <div class="checkbox-group">
-                <input type="checkbox" id="food-safety">
-                <label for="food-safety">I agree to follow food safety guidelines when handling donations</label>
-              </div>
-              
-              <div class="form-navigation">
-                <button type="button" class="btn btn-outline" id="step4-back">Back</button>
-                <button type="submit" class="btn btn-primary">Create Account</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Home Page (shown after login) -->
-  <section id="home-page" class="page">
+  <!-- Home Page -->
+  <section id="home-page">
     <section class="hero" id="home">
       <div class="container">
         <h1>Minimize Food Waste, Share with Those in Need</h1>
@@ -968,7 +506,7 @@
     </div>
   </footer>
 
-  <!-- Modal -->
+  <!-- Modal for logged-in users -->
   <div id="selectionModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
     <div class="modal-content">
       <div class="close-modal" id="closeModalBtn" aria-label="Close">&times;</div>
@@ -976,6 +514,19 @@
       <p id="modalDesc">Please select your role to continue:</p>
       <a href="delivery.html" class="btn btn-donor" style="display: inline-block; text-decoration: none;">I Want to Donate Food</a>
       <a href="receiver.html" class="btn btn-recipient" style="display: inline-block; text-decoration: none;">I Need Food</a>
+    </div>
+  </div>
+
+  <!-- Modal for non-logged-in users -->
+  <div id="loginRequiredModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle" aria-describedby="loginModalDesc">
+    <div class="modal-content">
+      <div class="close-modal" id="closeLoginModalBtn" aria-label="Close">&times;</div>
+      <h2 id="loginModalTitle">Login Required</h2>
+      <p id="loginModalDesc">Please login or register to get started with FoodShare.</p>
+      <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
+        <a href="login.html" class="btn btn-primary" style="text-decoration: none;">Login</a>
+        <a href="signup.html" class="btn btn-outline" style="text-decoration: none;">Register</a>
+      </div>
     </div>
   </div>
 
@@ -1042,10 +593,6 @@
           <li><a href="#" id="mobileLogoutBtn" class="btn btn-outline">Logout</a></li>
         `;
         
-        // Show home page, hide welcome page
-        document.getElementById('welcome-page').classList.remove('active');
-        document.getElementById('home-page').classList.add('active');
-        
         // Add logout functionality
         document.getElementById('logoutBtn').addEventListener('click', logout);
         document.getElementById('mobileLogoutBtn').addEventListener('click', logout);
@@ -1057,8 +604,8 @@
           <li><a href="how-it-works.html">How It Works</a></li>
           <li><a href="partners.html">Delivery Partners</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="#" id="loginNavBtn" class="btn btn-outline">Login</a></li>
-          <li><a href="#" id="signupNavBtn" class="btn btn-primary">Register</a></li>
+          <li><a href="login.html" class="btn btn-outline">Login</a></li>
+          <li><a href="signup.html" class="btn btn-primary">Register</a></li>
         `;
         
         mobileNavLinks.innerHTML = `
@@ -1067,101 +614,10 @@
           <li><a href="how-it-works.html">How It Works</a></li>
           <li><a href="partners.html">Delivery Partners</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="#" id="mobileLoginBtn" class="btn btn-outline">Login</a></li>
-          <li><a href="#" id="mobileSignupBtn" class="btn btn-primary">Register</a></li>
+          <li><a href="login.html" class="btn btn-outline">Login</a></li>
+          <li><a href="signup.html" class="btn btn-primary">Register</a></li>
         `;
-        
-        // Show welcome page, hide home page
-        document.getElementById('welcome-page').classList.add('active');
-        document.getElementById('home-page').classList.remove('active');
-        
-        // Add navigation to login/signup
-        document.getElementById('loginNavBtn').addEventListener('click', () => switchToTab('login'));
-        document.getElementById('signupNavBtn').addEventListener('click', () => switchToTab('signup'));
-        document.getElementById('mobileLoginBtn').addEventListener('click', () => {
-          switchToTab('login');
-          mobileNav.classList.remove('active');
-        });
-        document.getElementById('mobileSignupBtn').addEventListener('click', () => {
-          switchToTab('signup');
-          mobileNav.classList.remove('active');
-        });
       }
-    }
-
-    // Function to switch between login and signup tabs
-    function switchToTab(tabName) {
-      const loginTab = document.getElementById('loginTab');
-      const signupTab = document.getElementById('signupTab');
-      const loginForm = document.getElementById('login-form');
-      const signupForm = document.getElementById('signup-form');
-      
-      if (tabName === 'login') {
-        loginTab.classList.add('active');
-        signupTab.classList.remove('active');
-        loginForm.classList.add('active');
-        signupForm.classList.remove('active');
-      } else {
-        loginTab.classList.remove('active');
-        signupTab.classList.add('active');
-        loginForm.classList.remove('active');
-        signupForm.classList.add('active');
-      }
-    }
-
-    // Function to show form message
-    function showFormMessage(formId, message, type) {
-      const messageEl = document.getElementById(`${formId}-error-message`);
-      messageEl.textContent = message;
-      messageEl.className = `form-message ${type}`;
-      messageEl.style.display = 'block';
-      
-      // Auto-hide after 5 seconds
-      setTimeout(() => {
-        messageEl.style.display = 'none';
-      }, 5000);
-    }
-
-    // Function to handle login
-    function login(email, password) {
-      // In a real app, you would validate with a server
-      // For demo purposes, we'll simulate a successful login
-      currentUser = {
-        name: email.split('@')[0],
-        email: email
-      };
-      
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('currentUser', JSON.stringify(currentUser));
-      isLoggedIn = true;
-      
-      updateNavigation();
-      showFormMessage('login', 'Login successful! Redirecting...', 'success');
-    }
-
-    // Function to handle signup
-    function signup(userData) {
-      // In a real app, you would send this data to a server
-      // For demo purposes, we'll simulate a successful signup
-      currentUser = {
-        name: userData.name,
-        email: userData.email,
-        phone: userData.phone,
-        userType: userData.userType,
-        businessType: userData.businessType || null,
-        organizationType: userData.organizationType || null,
-        foodTypes: userData.foodTypes || null,
-        donationFrequency: userData.donationFrequency || null,
-        peopleServed: userData.peopleServed || null,
-        storageCapacity: userData.storageCapacity || null
-      };
-      
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('currentUser', JSON.stringify(currentUser));
-      isLoggedIn = true;
-      
-      updateNavigation();
-      showFormMessage('signup', 'Account created successfully! Welcome to FoodShare.', 'success');
     }
 
     // Function to handle logout
@@ -1172,24 +628,41 @@
       currentUser = {};
       
       updateNavigation();
+      // Refresh the page to update UI
+      location.reload();
     }
 
     // Modal functionality
     const getStartedBtn = document.getElementById('getStartedBtn');
     const selectionModal = document.getElementById('selectionModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
+    const loginRequiredModal = document.getElementById('loginRequiredModal');
+    const closeLoginModalBtn = document.getElementById('closeLoginModalBtn');
 
     getStartedBtn.addEventListener('click', () => {
-      selectionModal.classList.add('active');
+      if (isLoggedIn) {
+        // User is logged in - show role selection modal
+        selectionModal.classList.add('active');
+      } else {
+        // User is not logged in - show login required modal
+        loginRequiredModal.classList.add('active');
+      }
     });
 
     closeModalBtn.addEventListener('click', () => {
       selectionModal.classList.remove('active');
     });
 
+    closeLoginModalBtn.addEventListener('click', () => {
+      loginRequiredModal.classList.remove('active');
+    });
+
     window.addEventListener('click', e => {
       if (e.target === selectionModal) {
         selectionModal.classList.remove('active');
+      }
+      if (e.target === loginRequiredModal) {
+        loginRequiredModal.classList.remove('active');
       }
     });
 
@@ -1205,197 +678,6 @@
     closeMobileNav.addEventListener('click', () => {
       mobileNav.classList.remove('active');
     });
-
-    // Tab switching
-    document.getElementById('loginTab').addEventListener('click', () => switchToTab('login'));
-    document.getElementById('signupTab').addEventListener('click', () => switchToTab('signup'));
-
-    // Password toggle functionality
-    document.getElementById('login-password-toggle').addEventListener('click', function() {
-      const input = document.getElementById('login-password');
-      const icon = this.querySelector('i');
-      
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon.classList.remove('fa-eye');
-        icon.classList.add('fa-eye-slash');
-      } else {
-        input.type = 'password';
-        icon.classList.remove('fa-eye-slash');
-        icon.classList.add('fa-eye');
-      }
-    });
-
-    document.getElementById('signup-password-toggle').addEventListener('click', function() {
-      const input = document.getElementById('signup-password');
-      const icon = this.querySelector('i');
-      
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon.classList.remove('fa-eye');
-        icon.classList.add('fa-eye-slash');
-      } else {
-        input.type = 'password';
-        icon.classList.remove('fa-eye-slash');
-        icon.classList.add('fa-eye');
-      }
-    });
-
-    // User type selection
-    const userTypes = document.querySelectorAll('.user-type');
-    userTypes.forEach(type => {
-      type.addEventListener('click', function() {
-        userTypes.forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
-        document.getElementById('user-type').value = this.dataset.type;
-        
-        // Show appropriate questions based on user type
-        if (this.dataset.type === 'donor') {
-          document.getElementById('donor-questions').style.display = 'block';
-          document.getElementById('recipient-questions').style.display = 'none';
-        } else {
-          document.getElementById('donor-questions').style.display = 'none';
-          document.getElementById('recipient-questions').style.display = 'block';
-        }
-      });
-    });
-
-    // Multi-step form navigation
-    let currentStep = 1;
-    const totalSteps = 4;
-
-    function goToStep(step) {
-      document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
-      document.getElementById(`step${step}`).classList.add('active');
-      currentStep = step;
-    }
-
-    document.getElementById('step1-next').addEventListener('click', function() {
-      if (!document.getElementById('user-type').value) {
-        showFormMessage('signup', 'Please select an account type', 'error');
-        return;
-      }
-      goToStep(2);
-    });
-
-    document.getElementById('step2-back').addEventListener('click', () => goToStep(1));
-    document.getElementById('step2-next').addEventListener('click', function() {
-      const name = document.getElementById('signup-name').value;
-      const email = document.getElementById('signup-email').value;
-      const phone = document.getElementById('signup-phone').value;
-      
-      if (!name || !email || !phone) {
-        showFormMessage('signup', 'Please fill in all required fields', 'error');
-        return;
-      }
-      
-      if (!validateEmail(email)) {
-        showFormMessage('signup', 'Please enter a valid email address', 'error');
-        return;
-      }
-      
-      goToStep(3);
-    });
-
-    document.getElementById('step3-back').addEventListener('click', () => goToStep(2));
-    document.getElementById('step3-next').addEventListener('click', function() {
-      const userType = document.getElementById('user-type').value;
-      
-      if (userType === 'donor') {
-        const businessType = document.getElementById('business-type').value;
-        const foodTypes = document.getElementById('food-types').value;
-        const donationFrequency = document.getElementById('donation-frequency').value;
-        
-        if (!businessType || !foodTypes || !donationFrequency) {
-          showFormMessage('signup', 'Please fill in all required fields', 'error');
-          return;
-        }
-      } else {
-        const organizationType = document.getElementById('organization-type').value;
-        const peopleServed = document.getElementById('people-served').value;
-        const storageCapacity = document.getElementById('storage-capacity').value;
-        
-        if (!organizationType || !peopleServed || !storageCapacity) {
-          showFormMessage('signup', 'Please fill in all required fields', 'error');
-          return;
-        }
-      }
-      
-      goToStep(4);
-    });
-
-    document.getElementById('step4-back').addEventListener('click', () => goToStep(3));
-
-    // Form submissions
-    document.getElementById('login-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = document.getElementById('login-email').value;
-      const password = document.getElementById('login-password').value;
-      
-      if (!email || !password) {
-        showFormMessage('login', 'Please fill in all required fields', 'error');
-        return;
-      }
-      
-      if (!validateEmail(email)) {
-        showFormMessage('login', 'Please enter a valid email address', 'error');
-        return;
-      }
-      
-      login(email, password);
-    });
-
-    document.getElementById('signup-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const userType = document.getElementById('user-type').value;
-      const name = document.getElementById('signup-name').value;
-      const email = document.getElementById('signup-email').value;
-      const phone = document.getElementById('signup-phone').value;
-      const password = document.getElementById('signup-password').value;
-      const confirmPassword = document.getElementById('signup-confirm-password').value;
-      const termsAgreement = document.getElementById('terms-agreement').checked;
-      
-      if (!termsAgreement) {
-        showFormMessage('signup', 'You must agree to the Terms of Service and Privacy Policy', 'error');
-        return;
-      }
-      
-      if (password !== confirmPassword) {
-        showFormMessage('signup', 'Passwords do not match', 'error');
-        return;
-      }
-      
-      if (password.length < 8) {
-        showFormMessage('signup', 'Password must be at least 8 characters long', 'error');
-        return;
-      }
-      
-      const userData = {
-        name,
-        email,
-        phone,
-        userType
-      };
-      
-      if (userType === 'donor') {
-        userData.businessType = document.getElementById('business-type').value;
-        userData.foodTypes = Array.from(document.getElementById('food-types').selectedOptions).map(o => o.value);
-        userData.donationFrequency = document.getElementById('donation-frequency').value;
-      } else {
-        userData.organizationType = document.getElementById('organization-type').value;
-        userData.peopleServed = document.getElementById('people-served').value;
-        userData.storageCapacity = document.getElementById('storage-capacity').value;
-      }
-      
-      signup(userData);
-    });
-
-    // Email validation helper
-    function validateEmail(email) {
-      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return re.test(email);
-    }
 
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', () => {
